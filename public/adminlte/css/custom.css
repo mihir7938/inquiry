@@ -1,0 +1,30 @@
+label.error {
+  	color: #ff0000;
+  	font-size: 14px;
+  	font-weight: normal !important;
+    width: 100%;
+}
+.loader {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  z-index: 9998;
+  background: black none repeat scroll 0% 0%;
+  opacity: 0.25;
+  display: none;
+}
+.loader-inner {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -20px;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+.hidden {
+  display: none;
+}
