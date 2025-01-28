@@ -3,22 +3,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CityService;
+use App\Http\Requests\UserRequest;
 use App\Services\BusinessService;
 use App\Services\RequirementService;
 use App\Services\StatusService;
 use App\Services\AssignService;
+use App\Services\UserService;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class AdminController extends Controller {
 
-	private $cityService, $businessService, $requirementService, $statusService, $assignService;
+	private $cityService, $businessService, $requirementService, $statusService, $assignService, $userService;
 
     public function __construct(
         CityService $cityService,
         BusinessService $businessService,
         RequirementService $requirementService,
         StatusService $statusService,
-        AssignService $assignService
+        AssignService $assignService,
+        UserService $userService
     )
     {
         $this->cityService = $cityService;
@@ -26,6 +29,7 @@ class AdminController extends Controller {
         $this->requirementService = $requirementService;
         $this->statusService = $statusService;
         $this->assignService = $assignService;
+        $this->userService = $userService;
     }
 
     public function index(Request $request)
@@ -365,6 +369,74 @@ class AdminController extends Controller {
             $request->session()->put('message', $e->getMessage());
             $request->session()->put('alert-type', 'alert-warning');
             return redirect()->route('admin.assign');
+        }
+    }
+    public function getUsers()
+    {
+        $users = $this->userService->getAllUsers();
+        return view('admin.users.index')->with('users', $users);
+    }
+    public function addUser()
+    {
+        return view('admin.users.add');
+    }
+    public function saveUser(UserRequest $request)
+    {
+        $user = $this->userService->create($request);
+        $request->session()->put('message', 'User has been added successfully.');
+        $request->session()->put('alert-type', 'alert-success');
+        return redirect()->route('admin.users');
+    }
+    public function editUser(Request $request, $id)
+    {
+        try{
+            $user = $this->userService->getUserById($id);
+            if(!$user){
+                throw new BadRequestException('Invalid Request id');
+            }
+            return view('admin.users.edit')->with('user', $user);
+        }catch(\Exception $e){
+            $request->session()->put('message', $e->getMessage());
+            $request->session()->put('alert-type', 'alert-warning');
+            return redirect()->route('admin.users');
+        }
+    }
+    public function updateUser(UserRequest $request)
+    {
+        try{
+            $user = $this->userService->getUserById($request->id);
+            if(!$user){
+                throw new BadRequestException('Invalid Request id');
+            }
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['phone'] = $request->phone;
+            $data['status'] = $request->active;
+            $this->userService->update($user, $data);
+            $request->session()->put('message', 'User has been updated successfully.');
+            $request->session()->put('alert-type', 'alert-success');
+            return redirect()->route('admin.users');
+        }catch(\Exception $e){
+            $request->session()->put('message', $e->getMessage());
+            $request->session()->put('alert-type', 'alert-warning');
+            return redirect()->route('admin.users');
+        }
+    }
+    public function deleteUser(Request $request, $id)
+    {
+        try{
+            $user = $this->userService->getUserById($id);
+            if(!$user){
+                throw new BadRequestException('Invalid Request id.');
+            }
+            $this->userService->delete($user);
+            $request->session()->put('message', 'User has been deleted successfully.');
+            $request->session()->put('alert-type', 'alert-success');
+            return redirect()->route('admin.users');
+        }catch(\Exception $e){
+            $request->session()->put('message', $e->getMessage());
+            $request->session()->put('alert-type', 'alert-warning');
+            return redirect()->route('admin.users');
         }
     }
 }

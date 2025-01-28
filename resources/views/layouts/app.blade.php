@@ -95,6 +95,26 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item {{(Route::currentRouteName() == 'admin.users') || (Route::currentRouteName() == 'admin.users.add') || (Route::currentRouteName() == 'admin.users.edit') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.users') || (Route::currentRouteName() == 'admin.users.add') || (Route::currentRouteName() == 'admin.users.edit') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>Users<i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.users')}}" class="nav-link {{(Route::currentRouteName() == 'admin.users') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>All Users</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('admin.users.add')}}" class="nav-link {{(Route::currentRouteName() == 'admin.users.add') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New User</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -115,6 +135,7 @@
     <script src="{{asset('adminlte/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/additional-methods.min.js"></script>
+    <script src="{{asset('js/validation-additional.js')}}"></script>
     <script src="{{asset('adminlte/js/moment.min.js')}}"></script>
     <script src="{{asset('adminlte/js/daterangepicker.js')}}"></script>
     <script src="{{asset('adminlte/js/jquery.overlayScrollbars.min.js')}}"></script>

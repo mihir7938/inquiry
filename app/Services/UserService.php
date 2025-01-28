@@ -22,6 +22,7 @@ class UserService
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->phone = $request->phone;
+            $user->status = $request->active;
             $user->save();
             return $user;
         });
@@ -34,11 +35,15 @@ class UserService
     {
         return $user->update($data);
     }
+    public function delete($user)
+    {
+        return $user->delete($user);
+    }
     public function getAllUsers($per_page = -1)
     {
         if($per_page == -1){
-            return User::where('status', 1)->orderBy('created_at', 'desc')->get();    
+            return User::orderBy('created_at', 'desc')->get();    
         }
-        return User::where('status', 1)->orderBy('created_at', 'desc')->paginate($per_page);
+        return User::orderBy('created_at', 'desc')->paginate($per_page);
     }
 }
