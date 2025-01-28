@@ -10,9 +10,9 @@ class RequirementService
     public function getAllRequirements($per_page = -1)
     {
         if($per_page == -1){
-            return Requirement::orderBy('created_at', 'asc')->get();    
+            return Requirement::orderByRaw('field(name, "Other")')->orderBy('created_at')->get();    
         }
-        return Requirement::orderBy('created_at', 'asc')->paginate($per_page);
+        return Requirement::orderByRaw('field(name, "Other")')->orderBy('created_at')->paginate($per_page);
     }
 
     public function getRequirementById($id)

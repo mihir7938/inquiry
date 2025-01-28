@@ -2,8 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\CityService;
 use App\Http\Requests\UserRequest;
+use App\Services\CityService;
 use App\Services\BusinessService;
 use App\Services\RequirementService;
 use App\Services\StatusService;

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +16,9 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', [PageController::class, 'index'])->name('index');
-
-Route::group(['prefix' => 'auth'], function () {
-    Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('authenticate');
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
-});
+Route::get('/', [AuthController::class, 'getLogin'])->name('login');
+Route::post('/', [AuthController::class, 'login'])->name('authenticate');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::group(['prefix' => 'password'], function () {
     Route::get('/forget', [AuthController::class, 'forgetPassword'])->name('forget_password');
@@ -69,4 +65,9 @@ Route::group(['prefix' => 'office', 'middleware' => 'admin'], function () {
     Route::get('/users/edit/{id}', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::post('/users/update', [AdminController::class, 'updateUser'])->name('admin.users.update.save');
     Route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+});
+
+Route::group(['prefix' => 'users', 'middleware' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::post('/', [UserController::class, 'saveInquiry'])->name('users.inquiry.save');
 });

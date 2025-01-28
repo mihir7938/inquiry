@@ -44,77 +44,86 @@
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="{{route('index')}}" class="brand-link">
+            <a href="{{route('login')}}" class="brand-link">
               <img src="{{asset('img/small_logo.png')}}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
               <span class="brand-text font-weight-light">Strong Services</span>
             </a>
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="{{route('admin.index')}}" class="nav-link {{(Route::currentRouteName() == 'admin.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="nav-item {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') || (Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') || (Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') || (Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') || (Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') || (Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') || (Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') || (Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') || (Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-layer-group"></i>
-                                <p>Masters<i class="right fas fa-angle-left"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('admin.cities')}}" class="nav-link {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Cities</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('admin.business')}}" class="nav-link {{(Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Business</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('admin.requirements')}}" class="nav-link {{(Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Requirements</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('admin.status')}}" class="nav-link {{(Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Status</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('admin.assign')}}" class="nav-link {{(Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Assign Names</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item {{(Route::currentRouteName() == 'admin.users') || (Route::currentRouteName() == 'admin.users.add') || (Route::currentRouteName() == 'admin.users.edit') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.users') || (Route::currentRouteName() == 'admin.users.add') || (Route::currentRouteName() == 'admin.users.edit') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>Users<i class="right fas fa-angle-left"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('admin.users')}}" class="nav-link {{(Route::currentRouteName() == 'admin.users') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All Users</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('admin.users.add')}}" class="nav-link {{(Route::currentRouteName() == 'admin.users.add') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New User</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if(Auth::check() && (Auth::user()->isUser()))
+                            <li class="nav-item">
+                                <a href="{{route('users.index')}}" class="nav-link {{(Route::currentRouteName() == 'users.index') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>Inquiry Form</p>
+                                </a>
+                            </li>
+                        @elseif(Auth::check() && Auth::user()->isAdmin())
+                            <li class="nav-item">
+                                <a href="{{route('admin.index')}}" class="nav-link {{(Route::currentRouteName() == 'admin.index') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') || (Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') || (Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') || (Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') || (Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') || (Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') || (Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') || (Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') || (Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-layer-group"></i>
+                                    <p>Masters<i class="right fas fa-angle-left"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    {{--<li class="nav-item">
+                                        <a href="{{route('admin.cities')}}" class="nav-link {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Cities</p>
+                                        </a>
+                                    </li>--}}
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.business')}}" class="nav-link {{(Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Business</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.requirements')}}" class="nav-link {{(Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Requirements</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.status')}}" class="nav-link {{(Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Status</p>
+                                        </a>
+                                    </li>
+                                    {{--<li class="nav-item">
+                                        <a href="{{route('admin.assign')}}" class="nav-link {{(Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Assign Names</p>
+                                        </a>
+                                    </li>--}}
+                                </ul>
+                            </li>
+                            <li class="nav-item {{(Route::currentRouteName() == 'admin.users') || (Route::currentRouteName() == 'admin.users.add') || (Route::currentRouteName() == 'admin.users.edit') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.users') || (Route::currentRouteName() == 'admin.users.add') || (Route::currentRouteName() == 'admin.users.edit') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>Users<i class="right fas fa-angle-left"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.users')}}" class="nav-link {{(Route::currentRouteName() == 'admin.users') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>All Users</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.users.add')}}" class="nav-link {{(Route::currentRouteName() == 'admin.users.add') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Add New User</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
             </div>

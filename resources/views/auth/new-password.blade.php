@@ -15,7 +15,7 @@
 	<div class="login-box">
 	  	<div class="card card-outline card-primary">
 		    <div class="card-header text-center">
-		      	<a href="{{route('index')}}" class="h1"><img src="{{asset('img/logo.png')}}" alt="Logo"></a>
+		      	<a href="{{route('login')}}" class="h1"><img src="{{asset('img/logo.png')}}" alt="Logo"></a>
 		    </div>
 	    	<div class="card-body">
 	      		<p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>

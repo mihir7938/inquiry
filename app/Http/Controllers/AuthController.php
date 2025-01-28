@@ -28,7 +28,11 @@ class AuthController extends Controller
             $users = $this->userService->getAllUsers();
             return view('auth.login')->with('users', $users);
         }
-        $url = url('/office');
+        if (Auth::check() && Auth::user()->role_id == Role::USER_ROLE_ID) {
+            $url = url('/users');
+        } elseif (Auth::check() && Auth::user()->role_id == Role::ADMIN_ROLE_ID) {
+            $url = url('/office');
+        }
         return redirect($url);
     }
 
@@ -53,7 +57,11 @@ class AuthController extends Controller
                 if ($request->ajax()) {
                     return response()->json(['status' => true]);
                 } else {
-                    $url = url('/office');
+                    if ($user->role_id == Role::ADMIN_ROLE_ID) {
+                        $url = url('/office');
+                    } elseif ($user->role_id == Role::USER_ROLE_ID) {
+                        $url = url('/users');
+                    }
                     return redirect($url);
                 }
             } else {
