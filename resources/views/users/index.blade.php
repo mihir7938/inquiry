@@ -95,6 +95,19 @@
 					                            @endforeach
 					                        </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="remarks">Remarks</label>
+                                            <textarea class="form-control" id="remarks" name="remarks" rows="4" cols="50" placeholder="Remarks"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="image">Image (allowed only JPG,JPEG &amp; PNG files)</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">             
+                                                    <input type="file" class="custom-file-input" id="image" name="image">
+                                                    <label class="custom-file-label" for="image">Choose file</label>
+                                                </div>              
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,15 +124,68 @@
 @section('footer')
 <script>
     $(function () {
+        bsCustomFileInput.init();
         $('#add-inquiry-form').validate({
             rules:{
-                name: {
+                company_name: {
                     required: true
+                },
+                contact_person: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    digits: true,
+                    minlength: 10
+                },
+                business: {
+                    required: true
+                },
+                city: {
+                    required: true
+                },
+                requirement: {
+                    required: true
+                },
+                status: {
+                    required: true
+                },
+                assign: {
+                    required: true
+                },
+                image: {
+                    extension: "png|jpg|jpeg",
+                    maxsize: 2000000,
                 }
             },
             messages:{
-                name:{
-                    required: "Please enter name."
+                company_name: {
+                    required: "Please enter company name."
+                },
+                contact_person: {
+                    required: "Please enter contact person."
+                },
+                phone: {
+                    required: "Plese enter mobile number.",
+                },
+                business: {
+                    required: "Please select business."
+                },
+                city: {
+                    required: "Please enter city."
+                },
+                requirement: {
+                    required: "Please select requirement."
+                },
+                status: {
+                    required: "Please select status."
+                },
+                assign: {
+                    required: "Please select assign."
+                },
+                image: {
+                    extension: "Please select valid image.",
+                    maxsize: "File size must be less than 2MB."
                 }
             }
         });
