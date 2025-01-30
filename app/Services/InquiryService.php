@@ -34,4 +34,9 @@ class InquiryService
     {
         return $inquiry->delete($inquiry);
     }
+
+    public function getTotalInquiriesByStatus($status_id)
+    {
+        return Inquiry::where('status_id', $status_id)->count();
+    }
 }

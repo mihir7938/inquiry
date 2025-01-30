@@ -65,6 +65,20 @@
                                     <p>Dashboard</p>
                                 </a>
                             </li>
+                            <li class="nav-item {{(Route::currentRouteName() == 'admin.inquiries') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-question-circle"></i>
+                                    <p>Inquiries<i class="right fas fa-angle-left"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.inquiries')}}" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>All Inquiries</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') || (Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') || (Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') || (Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') || (Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'menu-open' : '' }}">
                                 <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.cities') || (Route::currentRouteName() == 'admin.cities.add') || (Route::currentRouteName() == 'admin.cities.edit') || (Route::currentRouteName() == 'admin.business') || (Route::currentRouteName() == 'admin.business.add') || (Route::currentRouteName() == 'admin.business.edit') || (Route::currentRouteName() == 'admin.requirements') || (Route::currentRouteName() == 'admin.requirements.add') || (Route::currentRouteName() == 'admin.requirements.edit') || (Route::currentRouteName() == 'admin.status') || (Route::currentRouteName() == 'admin.status.add') || (Route::currentRouteName() == 'admin.status.edit') || (Route::currentRouteName() == 'admin.assign') || (Route::currentRouteName() == 'admin.assign.add') || (Route::currentRouteName() == 'admin.assign.edit') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-layer-group"></i>
@@ -142,6 +156,10 @@
     <script src="{{asset('adminlte/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('adminlte/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('adminlte/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('adminlte/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('adminlte/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('adminlte/js/jszip.min.js')}}"></script>
+    <script src="{{asset('adminlte/js/buttons.html5.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/additional-methods.min.js"></script>
     <script src="{{asset('js/validation-additional.js')}}"></script>

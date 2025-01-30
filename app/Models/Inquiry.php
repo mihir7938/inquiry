@@ -40,4 +40,25 @@ class Inquiry extends Model
         'followup_remarks_5',
         'followup_date_5',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function assign()
+    {
+        return $this->belongsTo(User::class, 'assign_id', 'id');
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id', 'id');
+    }
+    public function business()
+    {
+        return $this->belongsTo(Business::class, 'business_id', 'id');
+    }
+    public function requirement()
+    {
+        return $this->belongsTo(Requirement::class, 'requirement_id', 'id');
+    }
 }

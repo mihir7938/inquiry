@@ -65,6 +65,7 @@ Route::group(['prefix' => 'office', 'middleware' => 'admin'], function () {
     Route::get('/users/edit/{id}', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::post('/users/update', [AdminController::class, 'updateUser'])->name('admin.users.update.save');
     Route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+    Route::get('/inquiries', [AdminController::class, 'getInquiries'])->name('admin.inquiries');
 });
 
 Route::group(['prefix' => 'users', 'middleware' => 'user'], function () {

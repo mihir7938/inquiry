@@ -9,11 +9,12 @@ use App\Services\RequirementService;
 use App\Services\StatusService;
 use App\Services\AssignService;
 use App\Services\UserService;
+use App\Services\InquiryService;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class AdminController extends Controller {
 
-	private $cityService, $businessService, $requirementService, $statusService, $assignService, $userService;
+	private $cityService, $businessService, $requirementService, $statusService, $assignService, $userService, $inquiryService;
 
     public function __construct(
         CityService $cityService,
@@ -21,7 +22,8 @@ class AdminController extends Controller {
         RequirementService $requirementService,
         StatusService $statusService,
         AssignService $assignService,
-        UserService $userService
+        UserService $userService,
+        InquiryService $inquiryService
     )
     {
         $this->cityService = $cityService;
@@ -30,11 +32,18 @@ class AdminController extends Controller {
         $this->statusService = $statusService;
         $this->assignService = $assignService;
         $this->userService = $userService;
+        $this->inquiryService = $inquiryService;
     }
 
     public function index(Request $request)
     {
-        return view('admin.index');
+        $total_inquiry = $this->inquiryService->getTotalInquiriesByStatus(1);
+        $total_demo = $this->inquiryService->getTotalInquiriesByStatus(2);
+        $total_followup = $this->inquiryService->getTotalInquiriesByStatus(3);
+        $total_confirmed = $this->inquiryService->getTotalInquiriesByStatus(4);
+        $total_cancelled = $this->inquiryService->getTotalInquiriesByStatus(5);
+        $total_future_list = $this->inquiryService->getTotalInquiriesByStatus(6);
+        return view('admin.index')->with('total_inquiry', $total_inquiry)->with('total_demo', $total_demo)->with('total_followup', $total_followup)->with('total_confirmed', $total_confirmed)->with('total_cancelled', $total_cancelled)->with('total_future_list', $total_future_list);
     }
     public function cities(Request $request)
     {
@@ -438,5 +447,10 @@ class AdminController extends Controller {
             $request->session()->put('alert-type', 'alert-warning');
             return redirect()->route('admin.users');
         }
+    }
+    public function getInquiries()
+    {
+        $inquiries = $this->inquiryService->getAllInquiries();
+        return view('admin.inquiries.index')->with('inquiries', $inquiries);
     }
 }

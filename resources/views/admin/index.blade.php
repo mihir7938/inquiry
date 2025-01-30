@@ -12,19 +12,58 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Welcome to Strong Services</h3>
+                <div class="col-lg-4 col-6">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ $total_inquiry }}</h3>
+                            <p>Total Inquiry</p>
                         </div>
-                        <div class="card-body">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h3>{{ $total_demo }}</h3>
+                            <p>Total Demo</p>
                         </div>
-                        <div class="card-footer">
-                            For Sales / Demo : 88669 33533
+                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{ $total_followup }}</h3>
+                            <p>Total Followup</p>
                         </div>
+                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{ $total_confirmed }}</h3>
+                            <p>Total Confirmed</p>
+                        </div>
+                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{ $total_cancelled }}</h3>
+                            <p>Total Cancelled</p>
+                        </div>
+                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="small-box bg-dark">
+                        <div class="inner">
+                            <h3>{{ $total_future_list }}</h3>
+                            <p>Total Future List</p>
+                        </div>
+                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
