@@ -448,9 +448,35 @@ class AdminController extends Controller {
             return redirect()->route('admin.users');
         }
     }
-    public function getInquiries()
+    public function getInquiries(Request $request)
     {
-        $inquiries = $this->inquiryService->getAllInquiries();
-        return view('admin.inquiries.index')->with('inquiries', $inquiries);
+        $statuses = $this->statusService->getAllStatus();
+        $status_id = "";
+        if( $request->has('status') ) {
+            $status_id = $request->input('status');
+            $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
+        } else {
+            $inquiries = $this->inquiryService->getAllInquiries();
+        }
+        return view('admin.inquiries.index')->with('statuses', $statuses)->with('status_id', $status_id)->with('inquiries', $inquiries);
+    }
+    public function fetchInquiriesByStatus(Request $request)
+    {
+        $status_id = $request->status_id;
+        $inquiries = '';
+        if($status_id == 1) {
+            $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
+        } elseif($status_id == 2) {
+            $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
+        } elseif($status_id == 3) {
+            $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
+        } elseif($status_id == 4) {
+            $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
+        } elseif($status_id == 5) {
+            $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
+        } elseif($status_id == 6) {
+            $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
+        }
+        return view('admin.inquiries.list')->with('inquiries', $inquiries)->render();
     }
 }

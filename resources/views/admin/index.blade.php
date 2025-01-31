@@ -18,7 +18,7 @@
                             <h3>{{ $total_inquiry }}</h3>
                             <p>Total Inquiry</p>
                         </div>
-                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('admin.inquiries')}}?status=1" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6">
@@ -27,7 +27,7 @@
                             <h3>{{ $total_demo }}</h3>
                             <p>Total Demo</p>
                         </div>
-                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('admin.inquiries')}}?status=2" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6">
@@ -36,7 +36,7 @@
                             <h3>{{ $total_followup }}</h3>
                             <p>Total Followup</p>
                         </div>
-                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('admin.inquiries')}}?status=3" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6">
@@ -45,7 +45,7 @@
                             <h3>{{ $total_confirmed }}</h3>
                             <p>Total Confirmed</p>
                         </div>
-                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('admin.inquiries')}}?status=4" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6">
@@ -54,7 +54,7 @@
                             <h3>{{ $total_cancelled }}</h3>
                             <p>Total Cancelled</p>
                         </div>
-                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('admin.inquiries')}}?status=5" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6">
@@ -63,7 +63,7 @@
                             <h3>{{ $total_future_list }}</h3>
                             <p>Total Future List</p>
                         </div>
-                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('admin.inquiries')}}?status=6" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

@@ -39,4 +39,9 @@ class InquiryService
     {
         return Inquiry::where('status_id', $status_id)->count();
     }
+
+    public function getInquiriesByStatus($status_id)
+    {
+        return Inquiry::where('status_id', $status_id)->get();
+    }
 }

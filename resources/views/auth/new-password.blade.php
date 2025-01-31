@@ -50,7 +50,7 @@
 			        </div>
 	        		<div class="row">
 	          			<div class="col-12">
-	            			<button type="submit" name="submit" class="btn btn-primary btn-block">Change password</button>
+	            			<button type="submit" name="submitBtn" class="btn btn-primary btn-block">Change password</button>
 	          			</div>
         			</div>
 	      		</form>

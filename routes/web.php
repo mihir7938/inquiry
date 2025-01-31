@@ -17,7 +17,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [AuthController::class, 'getLogin'])->name('login');
-Route::post('/', [AuthController::class, 'login'])->name('authenticate');
+Route::post('/login', [AuthController::class, 'login'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::group(['prefix' => 'password'], function () {
@@ -66,6 +66,7 @@ Route::group(['prefix' => 'office', 'middleware' => 'admin'], function () {
     Route::post('/users/update', [AdminController::class, 'updateUser'])->name('admin.users.update.save');
     Route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
     Route::get('/inquiries', [AdminController::class, 'getInquiries'])->name('admin.inquiries');
+    Route::post('/fetch-inquiries', [AdminController::class, 'fetchInquiriesByStatus'])->name('admin.inquiries.fetch');
 });
 
 Route::group(['prefix' => 'users', 'middleware' => 'user'], function () {

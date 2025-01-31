@@ -15,74 +15,42 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    @include('shared.alert')
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">All Inquiries</h3>
+                    <form method="POST" action="{{route('admin.inquiries.fetch')}}" class="form" id="add-inquiry-form" enctype="multipart/form-data">
+                        @csrf
+                        @include('shared.alert')
+                        @if (count($errors) > 0)
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTableInquiry" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Company</th>
-                                            <th>Contact Name</th>
-                                            <th>Mobile Number</th>
-                                            <th>User</th>
-                                            <th>Assign</th>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                            <th>Business</th>
-                                            <th>Requirement</th>
-                                            <th>City</th>
-                                            <th>Reff</th>
-                                            <th>Remarks</th>
-                                            <th>Image</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Company</th>
-                                            <th>Contact Name</th>
-                                            <th>Mobile Number</th>
-                                            <th>User</th>
-                                            <th>Assign</th>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                            <th>Business</th>
-                                            <th>Requirement</th>
-                                            <th>City</th>
-                                            <th>Reff</th>
-                                            <th>Remarks</th>
-                                            <th>Image</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        @foreach($inquiries as $inquiry)
-                                            <tr>
-                                                <td>{{$inquiry->company_name}}</td>
-                                                <td>{{$inquiry->contact_person}}</td>
-                                                <td>{{$inquiry->phone}}</td>
-                                                <td>{{$inquiry->user->name}}</td>
-                                                <td>{{$inquiry->assign->name}}</td>
-                                                <td>{{$inquiry->status->name}}</td>
-                                                <td>{{Carbon\Carbon::parse($inquiry->inquiry_date)->format('d-m-Y')}}</td>
-                                                <td>{{$inquiry->business->name}}</td>
-                                                <td>{{$inquiry->requirement->name}}</td>
-                                                <td>{{$inquiry->city}}</td>
-                                                <td>{{$inquiry->reff}}</td>
-                                                <td>{{$inquiry->remarks}}</td>
-                                                <td>
-                                                    @if($inquiry->image)
-                                                        <img src="{{asset('assets/'.$inquiry->image)}}" width="100px" />
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                        @endif
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Select Status</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="status">Status*</label>
+                                            <select id="status" name="status" class="form-control">
+                                                <option value="">Select Status</option>
+                                                @foreach($statuses as $status)
+                                                    <option value="{{$status->id}}" @if($status_id == $status->id) selected @endif>{{$status->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </form>
+                    <div id="inquiry_result">
+                        @include('admin.inquiries.list', ['inquiries' => $inquiries])
                     </div>
                 </div>
             </div>
@@ -101,6 +69,34 @@
             "info": true,
             "responsive": true,
         }).buttons().container().appendTo('#dataTableInquiry_wrapper .col-md-6:eq(0)');
+
+        $(document).on('change', '#status', function(){
+            $('.loader').show();
+            $.ajax({
+                url: "{{ route('admin.inquiries.fetch') }}",
+                method: "POST",
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                  'status_id' : $(this).val(),
+                },
+                success: function (data) {
+                    $('.loader').hide();
+                    $("#inquiry_result").html('');
+                    $('#inquiry_result').append(data);
+                    $('#dataTableInquiry').DataTable({
+                        "buttons": ["csv", "excel"],
+                        "destroy": true, 
+                        "paging": true,
+                        "lengthChange": false,
+                        "ordering": true,
+                        "info": true,
+                        "responsive": true,
+                    }).buttons().container().appendTo('#dataTableInquiry_wrapper .col-md-6:eq(0)');
+                },
+            });
+        });
     });
 </script>
 @endsection
