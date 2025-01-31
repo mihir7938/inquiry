@@ -59,7 +59,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('users.inquiries')}}" class="nav-link {{(Route::currentRouteName() == 'users.inquiries') ? 'active' : '' }}">
+                                <a href="{{route('users.inquiries')}}" class="nav-link {{(Route::currentRouteName() == 'users.inquiries') || (Route::currentRouteName() == 'users.inquiries.edit') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-question-circle"></i>
                                     <p>Inquiries</p>
                                 </a>

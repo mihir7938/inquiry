@@ -78,4 +78,54 @@ class UserController extends Controller
         $inquiries = $this->inquiryService->getInquiriesByUser(Auth::user()->id);
         return view('users.inquiries')->with('inquiries', $inquiries);
     }
+    public function editInquiry(Request $request, $id)
+    {
+        try{
+            $inquiry = $this->inquiryService->getInquiryById($id);
+            if(!$inquiry){
+                throw new BadRequestException('Invalid Request id');
+            }
+            $businesses = $this->businessService->getAllBusiness();
+            $requirements = $this->requirementService->getAllRequirements();
+            $statuses = $this->statusService->getAllStatus();
+            $users = $this->userService->getAllUsers();
+            return view('users.edit')->with('inquiry', $inquiry)->with('businesses', $businesses)->with('requirements', $requirements)->with('statuses', $statuses)->with('users', $users);
+        }catch(\Exception $e){
+            $request->session()->put('message', $e->getMessage());
+            $request->session()->put('alert-type', 'alert-warning');
+            return redirect()->route('users.inquiries');
+        }
+    }
+    public function updateInquiry(Request $request)
+    {
+        try{
+            $inquiry = $this->inquiryService->getInquiryById($request->id);
+            if(!$inquiry){
+                throw new BadRequestException('Invalid Request id');
+            }
+            $data['assign_id'] = $request->assign;
+            $data['contact_person'] = $request->contact_person;
+            $data['phone'] = $request->phone;
+            $data['city'] = $request->city;
+            $data['business_id'] = $request->business;
+            $data['requirement_id'] = $request->requirement;
+            $data['status_id'] = $request->status;
+            $data['reff'] = $request->reff;
+            $data['remarks'] = $request->remarks;
+            if($request->has('image')){
+                $filepath = public_path('assets/' . $inquiry->image);
+                $this->imageService->deleteFile($filepath);
+                $filename = $this->imageService->uploadFile($request->image, "assets/inquiry");
+                $data['image'] = '/inquiry/'.$filename;
+            }
+            $this->inquiryService->update($inquiry, $data);
+            $request->session()->put('message', 'inquiry has been updated successfully.');
+            $request->session()->put('alert-type', 'alert-success');
+            return redirect()->route('users.inquiries');
+        }catch(\Exception $e){
+            $request->session()->put('message', $e->getMessage());
+            $request->session()->put('alert-type', 'alert-warning');
+            return redirect()->route('users.inquiries');
+        }
+    }
 }

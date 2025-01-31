@@ -13,8 +13,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="POST" action="{{route('users.inquiry.save')}}" class="form" id="add-inquiry-form" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('users.inquiries.update.save')}}" class="form" id="edit-inquiry-form" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="id" value="{{$inquiry->id}}" />
                         @include('shared.alert')
                         @if (count($errors) > 0)
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -28,42 +29,42 @@
                         @endif
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Add Inquiry</h3>
+                                <h3 class="card-title">Edit Inquiry</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="company_name">Company Name*</label>
-                                            <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name*">
+                                            <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name*" value="{{$inquiry->company_name}}" disabled>
                                         </div>
                                         <div class="form-group">
                                             <label for="contact_person">Contact Person*</label>
-                                            <input type="text" class="form-control" id="contact_person" name="contact_person" placeholder="Contact Person*">
+                                            <input type="text" class="form-control" id="contact_person" name="contact_person" placeholder="Contact Person*" value="{{$inquiry->contact_person}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Mobile Number*</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number*">
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number*" value="{{$inquiry->phone}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="business">Business*</label>
                                             <select id="business" name="business" class="form-control">
 					                            <option value="">Select Business*</option>
 					                            @foreach($businesses as $business)
-					                                <option value="{{$business->id}}">{{$business->name}}</option>
+					                                <option value="{{$business->id}}" @if($inquiry->business_id == $business->id) selected @endif>{{$business->name}}</option>
 					                            @endforeach
 					                        </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="city">City (Eg: GJ-Surat)*</label>
-                                            <input type="text" class="form-control" id="city" name="city" placeholder="City (Eg: GJ-Surat)*">
+                                            <input type="text" class="form-control" id="city" name="city" placeholder="City (Eg: GJ-Surat)*" value="{{$inquiry->city}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="requirement">Requirement*</label>
                                             <select id="requirement" name="requirement" class="form-control">
 					                            <option value="">Select Requirement*</option>
 					                            @foreach($requirements as $requirement)
-					                                <option value="{{$requirement->id}}">{{$requirement->name}}</option>
+					                                <option value="{{$requirement->id}}" @if($inquiry->requirement_id == $requirement->id) selected @endif>{{$requirement->name}}</option>
 					                            @endforeach
 					                        </select>
                                         </div>
@@ -72,13 +73,13 @@
                                             <select id="status" name="status" class="form-control">
 					                            <option value="">Select Status*</option>
 					                            @foreach($statuses as $status)
-					                                <option value="{{$status->id}}">{{$status->name}}</option>
+					                                <option value="{{$status->id}}" @if($inquiry->status_id == $status->id) selected @endif>{{$status->name}}</option>
 					                            @endforeach
 					                        </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="reff">Reff Name & Contact (Self or Reff)</label>
-                                            <input type="text" class="form-control" id="reff" name="reff" placeholder="Reff Name & Contact">
+                                            <input type="text" class="form-control" id="reff" name="reff" placeholder="Reff Name & Contact" value="{{$inquiry->reff}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="user">User</label>
@@ -90,23 +91,26 @@
 					                            <option value="">Select Assign*</option>
 					                            @foreach($users as $user)
 					                            	@if($user->isUser())
-					                                	<option value="{{$user->id}}" @if(Auth::user()->id == $user->id) selected @endif>{{$user->name}}</option>
+					                                	<option value="{{$user->id}}" @if($inquiry->assign_id == $user->id) selected @endif>{{$user->name}}</option>
 					                                @endif
 					                            @endforeach
 					                        </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="remarks">Remarks</label>
-                                            <textarea class="form-control" id="remarks" name="remarks" rows="4" cols="50" placeholder="Remarks"></textarea>
+                                            <textarea class="form-control" id="remarks" name="remarks" rows="4" cols="50" placeholder="Remarks">{{$inquiry->remarks}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="image">Image (allowed only JPG,JPEG &amp; PNG files)</label>
-                                            <div class="input-group">
+                                            <div class="input-group image_div">
                                                 <div class="custom-file">             
                                                     <input type="file" class="custom-file-input" id="image" name="image">
                                                     <label class="custom-file-label" for="image">Choose file</label>
                                                 </div>              
                                             </div>
+                                            @if($inquiry->image)
+                                                <img src="{{asset('assets/'.$inquiry->image)}}" width="200px" class="mt-4 d-block" />
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -125,11 +129,8 @@
 <script>
     $(function () {
         bsCustomFileInput.init();
-        $('#add-inquiry-form').validate({
+        $('#edit-inquiry-form').validate({
             rules:{
-                company_name: {
-                    required: true
-                },
                 contact_person: {
                     required: true
                 },
@@ -159,9 +160,6 @@
                 }
             },
             messages:{
-                company_name: {
-                    required: "Please enter company name."
-                },
                 contact_person: {
                     required: "Please enter contact person."
                 },

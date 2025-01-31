@@ -29,7 +29,7 @@ label.error {
   display: none;
 }
 @media (max-width: 767px) {
-  #add-inquiry-form .form-group > label {
+  #add-inquiry-form .form-group > label, #edit-inquiry-form .form-group > label {
     display: none;
   }
 }
