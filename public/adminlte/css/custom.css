@@ -28,3 +28,8 @@ label.error {
 .hidden {
   display: none;
 }
+@media (max-width: 767px) {
+  #add-inquiry-form .form-group > label {
+    display: none;
+  }
+}

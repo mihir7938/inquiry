@@ -73,7 +73,7 @@ class AuthController extends Controller
             } else {
                 $request->session()->put('message', $e->getMessage());
                 $request->session()->put('alert-type', 'alert-danger');
-                return redirect('/auth/login');
+                return redirect()->route('login');
             }
         }
     }

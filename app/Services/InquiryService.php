@@ -44,4 +44,8 @@ class InquiryService
     {
         return Inquiry::where('status_id', $status_id)->get();
     }
+    public function getInquiriesByUser($user_id)
+    {
+        return Inquiry::where('user_id', $user_id)->get();
+    }
 }

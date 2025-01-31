@@ -73,4 +73,9 @@ class UserController extends Controller
         $request->session()->put('alert-type', 'alert-success');
         return redirect()->route('users.index');
     }
+    public function getInquiries(Request $request)
+    {
+        $inquiries = $this->inquiryService->getInquiriesByUser(Auth::user()->id);
+        return view('users.inquiries')->with('inquiries', $inquiries);
+    }
 }

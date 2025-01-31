@@ -72,4 +72,7 @@ Route::group(['prefix' => 'office', 'middleware' => 'admin'], function () {
 Route::group(['prefix' => 'users', 'middleware' => 'user'], function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::post('/', [UserController::class, 'saveInquiry'])->name('users.inquiry.save');
+    Route::get('/inquiries', [UserController::class, 'getInquiries'])->name('users.inquiries');
+    Route::get('/inquiries/edit/{id}', [UserController::class, 'editInquiry'])->name('users.inquiries.edit');
+    Route::post('/inquiries/update', [UserController::class, 'updateInquiry'])->name('users.inquiries.update.save');
 });
