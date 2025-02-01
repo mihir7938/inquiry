@@ -5,7 +5,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <div class="d-flex justify-content-between">
-                        <h1 class="m-0">Inquiries</h1>
+                        <h1 class="m-0">Assign Inquiries</h1>
                     </div>
                 </div>
             </div>
@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="POST" action="{{route('users.inquiries.fetch')}}" class="form" id="fetch-inquiry" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('users.assign.inquiries.fetch')}}" class="form" id="fetch-inquiry" enctype="multipart/form-data">
                         @csrf
                         @include('shared.alert')
                         @if (count($errors) > 0)
@@ -40,7 +40,7 @@
                                             <select id="status" name="status" class="form-control">
                                                 <option value="">Select Status</option>
                                                 @foreach($statuses as $status)
-                                                    <option value="{{$status->id}}" @if($status_id == $status->id) selected @endif>{{$status->name}}</option>
+                                                    <option value="{{$status->id}}">{{$status->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -73,7 +73,7 @@
         $(document).on('change', '#status', function(){
             $('.loader').show();
             $.ajax({
-                url: "{{ route('users.inquiries.fetch') }}",
+                url: "{{ route('users.assign.inquiries.fetch') }}",
                 method: "POST",
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

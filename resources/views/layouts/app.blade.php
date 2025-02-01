@@ -70,6 +70,12 @@
                                     <p>Inquiries</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{route('users.assign.inquiries')}}" class="nav-link {{(Route::currentRouteName() == 'users.assign.inquiries') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-question-circle"></i>
+                                    <p>Assign Inquiries</p>
+                                </a>
+                            </li>
                         @elseif(Auth::check() && Auth::user()->isAdmin())
                             <li class="nav-item">
                                 <a href="{{route('admin.index')}}" class="nav-link {{(Route::currentRouteName() == 'admin.index') ? 'active' : '' }}">

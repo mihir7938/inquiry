@@ -7,8 +7,10 @@
             <table class="table table-bordered" id="dataTableInquiry" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>Action</th>
+                        @if($flag == 1)
+                            <th></th>
+                            <th>Action</th>
+                        @endif
                         <th>Company</th>
                         <th>Contact Name</th>
                         <th>Mobile Number</th>
@@ -26,8 +28,10 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th></th>
-                        <th>Action</th>
+                        @if($flag == 1)
+                            <th></th>
+                            <th>Action</th>
+                        @endif
                         <th>Company</th>
                         <th>Contact Name</th>
                         <th>Mobile Number</th>
@@ -46,12 +50,14 @@
                 <tbody>
                     @foreach($inquiries as $inquiry)
                         <tr>
-                            <td></td>
-                            <td style="width: 80px;text-align: center;">
-                                <a href="{{route('users.inquiries.edit', ['id' => $inquiry->id])}}" class="btn btn-outline-primary btn-circle">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                            </td>
+                            @if($flag == 1)
+                                <td></td>
+                                <td style="width: 80px;text-align: center;">
+                                    <a href="{{route('users.inquiries.edit', ['id' => $inquiry->id])}}" class="btn btn-outline-primary btn-circle">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                </td>
+                            @endif
                             <td>{{$inquiry->company_name}}</td>
                             <td>{{$inquiry->contact_person}}</td>
                             <td>{{$inquiry->phone}}</td>

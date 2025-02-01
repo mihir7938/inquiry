@@ -50,6 +50,16 @@ class InquiryService
         return Inquiry::where('user_id', $user_id)->where('status_id', $status_id)->orderBy('created_at','desc')->get();
     }
 
+    public function getInquiriesByAssign($assign_id)
+    {
+        return Inquiry::where('assign_id', $assign_id)->orderBy('created_at','desc')->get();
+    }
+
+    public function getInquiriesByAssignByStatus($assign_id, $status_id)
+    {
+        return Inquiry::where('assign_id', $assign_id)->where('status_id', $status_id)->orderBy('created_at','desc')->get();
+    }
+
     public function getTotalInquiriesByStatus($status_id)
     {
         return Inquiry::where('status_id', $status_id)->count();

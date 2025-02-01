@@ -91,19 +91,21 @@ class UserController extends Controller
         $statuses = $this->statusService->getAllStatus();
         $user_id = Auth::user()->id;
         $status_id = "";
+        $flag = 1;
         if( $request->has('status') ) {
             $status_id = $request->input('status');
             $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
         } else {
             $inquiries = $this->inquiryService->getInquiriesByUser($user_id);
         }
-        return view('users.inquiries')->with('statuses', $statuses)->with('status_id', $status_id)->with('inquiries', $inquiries);
+        return view('users.inquiries')->with('statuses', $statuses)->with('status_id', $status_id)->with('flag', $flag)->with('inquiries', $inquiries);
     }
     public function fetchInquiriesByStatus(Request $request)
     {
         $status_id = $request->status_id;
         $user_id = Auth::user()->id;
         $inquiries = $this->inquiryService->getInquiriesByUser($user_id);
+        $flag = 1;
         if($status_id == 1) {
             $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
         } elseif($status_id == 2) {
@@ -117,7 +119,7 @@ class UserController extends Controller
         } elseif($status_id == 6) {
             $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
         }
-        return view('users.list')->with('inquiries', $inquiries)->render();
+        return view('users.list')->with('inquiries', $inquiries)->with('flag', $flag)->render();
     }
     public function editInquiry(Request $request, $id)
     {
@@ -168,5 +170,34 @@ class UserController extends Controller
             $request->session()->put('alert-type', 'alert-warning');
             return redirect()->route('users.inquiries');
         }
+    }
+    public function getAssignInquiries(Request $request)
+    {
+        $statuses = $this->statusService->getAllStatus();
+        $assign_id = Auth::user()->id;
+        $flag = 0;
+        $inquiries = $this->inquiryService->getInquiriesByAssign($assign_id);
+        return view('users.assign')->with('statuses', $statuses)->with('inquiries', $inquiries)->with('flag', $flag);
+    }
+    public function fetchAssignInquiriesByStatus(Request $request)
+    {
+        $status_id = $request->status_id;
+        $assign_id = Auth::user()->id;
+        $flag = 0;
+        $inquiries = $this->inquiryService->getInquiriesByAssign($assign_id);
+        if($status_id == 1) {
+            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
+        } elseif($status_id == 2) {
+            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
+        } elseif($status_id == 3) {
+            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
+        } elseif($status_id == 4) {
+            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
+        } elseif($status_id == 5) {
+            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
+        } elseif($status_id == 6) {
+            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
+        }
+        return view('users.list')->with('inquiries', $inquiries)->with('flag', $flag)->render();
     }
 }

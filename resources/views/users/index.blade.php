@@ -81,7 +81,7 @@
                             <h3>{{ $total_assign_inquiry }}</h3>
                             <p>Total Assign Inquiry</p>
                         </div>
-                        <a href="#" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('users.assign.inquiries')}}" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

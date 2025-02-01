@@ -79,4 +79,6 @@ Route::group(['prefix' => 'users', 'middleware' => 'user'], function () {
     Route::post('/fetch-inquiries', [UserController::class, 'fetchInquiriesByStatus'])->name('users.inquiries.fetch');
     Route::get('/inquiries/edit/{id}', [UserController::class, 'editInquiry'])->name('users.inquiries.edit');
     Route::post('/inquiries/update', [UserController::class, 'updateInquiry'])->name('users.inquiries.update.save');
+    Route::get('/assign-inquiries', [UserController::class, 'getAssignInquiries'])->name('users.assign.inquiries');
+    Route::post('/fetch-assign-inquiries', [UserController::class, 'fetchAssignInquiriesByStatus'])->name('users.assign.inquiries.fetch');
 });
