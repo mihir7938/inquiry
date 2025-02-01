@@ -12,16 +12,25 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $total_inquiry }}</h3>
                             <p>Total Inquiry</p>
                         </div>
+                        <a href="{{route('admin.inquiries')}}" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-dark">
+                        <div class="inner">
+                            <h3>{{ $total_pending_inquiry }}</h3>
+                            <p>Total Pending Inquiry</p>
+                        </div>
                         <a href="{{route('admin.inquiries')}}?status=1" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="small-box bg-primary">
                         <div class="inner">
                             <h3>{{ $total_demo }}</h3>
@@ -30,7 +39,7 @@
                         <a href="{{route('admin.inquiries')}}?status=2" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>{{ $total_followup }}</h3>
@@ -39,7 +48,7 @@
                         <a href="{{route('admin.inquiries')}}?status=3" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $total_confirmed }}</h3>
@@ -48,7 +57,7 @@
                         <a href="{{route('admin.inquiries')}}?status=4" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="small-box bg-danger">
                         <div class="inner">
                             <h3>{{ $total_cancelled }}</h3>
@@ -57,13 +66,22 @@
                         <a href="{{route('admin.inquiries')}}?status=5" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="small-box bg-dark">
                         <div class="inner">
                             <h3>{{ $total_future_list }}</h3>
                             <p>Total Future List</p>
                         </div>
                         <a href="{{route('admin.inquiries')}}?status=6" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ $total_users }}</h3>
+                            <p>Total Users</p>
+                        </div>
+                        <a href="{{route('admin.users')}}" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Services\UploadImageService;
 use App\Services\CityService;
 use App\Services\BusinessService;
 use App\Services\RequirementService;
@@ -10,13 +11,16 @@ use App\Services\StatusService;
 use App\Services\AssignService;
 use App\Services\UserService;
 use App\Services\InquiryService;
+use App\Models\Inquiry;
+use App\Models\User;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class AdminController extends Controller {
 
-	private $cityService, $businessService, $requirementService, $statusService, $assignService, $userService, $inquiryService;
+	private $imageService, $cityService, $businessService, $requirementService, $statusService, $assignService, $userService, $inquiryService;
 
     public function __construct(
+        UploadImageService $imageService,
         CityService $cityService,
         BusinessService $businessService,
         RequirementService $requirementService,
@@ -26,6 +30,7 @@ class AdminController extends Controller {
         InquiryService $inquiryService
     )
     {
+        $this->imageService = $imageService;
         $this->cityService = $cityService;
         $this->businessService = $businessService;
         $this->requirementService = $requirementService;
@@ -37,13 +42,15 @@ class AdminController extends Controller {
 
     public function index(Request $request)
     {
-        $total_inquiry = $this->inquiryService->getTotalInquiriesByStatus(1);
+        $total_inquiry = Inquiry::count();
+        $total_pending_inquiry = $this->inquiryService->getTotalInquiriesByStatus(1);
         $total_demo = $this->inquiryService->getTotalInquiriesByStatus(2);
         $total_followup = $this->inquiryService->getTotalInquiriesByStatus(3);
         $total_confirmed = $this->inquiryService->getTotalInquiriesByStatus(4);
         $total_cancelled = $this->inquiryService->getTotalInquiriesByStatus(5);
         $total_future_list = $this->inquiryService->getTotalInquiriesByStatus(6);
-        return view('admin.index')->with('total_inquiry', $total_inquiry)->with('total_demo', $total_demo)->with('total_followup', $total_followup)->with('total_confirmed', $total_confirmed)->with('total_cancelled', $total_cancelled)->with('total_future_list', $total_future_list);
+        $total_users = User::count();
+        return view('admin.index')->with('total_inquiry', $total_inquiry)->with('total_pending_inquiry', $total_pending_inquiry)->with('total_demo', $total_demo)->with('total_followup', $total_followup)->with('total_confirmed', $total_confirmed)->with('total_cancelled', $total_cancelled)->with('total_future_list', $total_future_list)->with('total_users', $total_users);
     }
     public function cities(Request $request)
     {
@@ -463,7 +470,7 @@ class AdminController extends Controller {
     public function fetchInquiriesByStatus(Request $request)
     {
         $status_id = $request->status_id;
-        $inquiries = '';
+        $inquiries = $this->inquiryService->getAllInquiries();
         if($status_id == 1) {
             $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
         } elseif($status_id == 2) {
@@ -478,5 +485,55 @@ class AdminController extends Controller {
             $inquiries = $this->inquiryService->getInquiriesByStatus($status_id);
         }
         return view('admin.inquiries.list')->with('inquiries', $inquiries)->render();
+    }
+    public function editInquiry(Request $request, $id)
+    {
+        try{
+            $inquiry = $this->inquiryService->getInquiryById($id);
+            if(!$inquiry){
+                throw new BadRequestException('Invalid Request id');
+            }
+            $businesses = $this->businessService->getAllBusiness();
+            $requirements = $this->requirementService->getAllRequirements();
+            $statuses = $this->statusService->getAllStatus();
+            $users = $this->userService->getAllUsers();
+            return view('admin.inquiries.edit')->with('inquiry', $inquiry)->with('businesses', $businesses)->with('requirements', $requirements)->with('statuses', $statuses)->with('users', $users);
+        }catch(\Exception $e){
+            $request->session()->put('message', $e->getMessage());
+            $request->session()->put('alert-type', 'alert-warning');
+            return redirect()->route('admin.inquiries');
+        }
+    }
+    public function updateInquiry(Request $request)
+    {
+        try{
+            $inquiry = $this->inquiryService->getInquiryById($request->id);
+            if(!$inquiry){
+                throw new BadRequestException('Invalid Request id');
+            }
+            $data['assign_id'] = $request->assign;
+            $data['contact_person'] = $request->contact_person;
+            $data['phone'] = $request->phone;
+            $data['city'] = $request->city;
+            $data['business_id'] = $request->business;
+            $data['requirement_id'] = $request->requirement;
+            $data['status_id'] = $request->status;
+            $data['reff'] = $request->reff;
+            $data['remarks'] = $request->remarks;
+            if($request->has('image')){
+                $filepath = public_path('assets/' . $inquiry->image);
+                $this->imageService->deleteFile($filepath);
+                $filename = $this->imageService->uploadFile($request->image, "assets/inquiry");
+                $data['image'] = '/inquiry/'.$filename;
+            }
+            $this->inquiryService->update($inquiry, $data);
+            $request->session()->put('message', 'inquiry has been updated successfully.');
+            $request->session()->put('alert-type', 'alert-success');
+            return redirect()->route('admin.inquiries');
+        }catch(\Exception $e){
+            $request->session()->put('message', $e->getMessage());
+            $request->session()->put('alert-type', 'alert-warning');
+            return redirect()->route('admin.inquiries');
+        }
     }
 }

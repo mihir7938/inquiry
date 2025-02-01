@@ -67,12 +67,16 @@ Route::group(['prefix' => 'office', 'middleware' => 'admin'], function () {
     Route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
     Route::get('/inquiries', [AdminController::class, 'getInquiries'])->name('admin.inquiries');
     Route::post('/fetch-inquiries', [AdminController::class, 'fetchInquiriesByStatus'])->name('admin.inquiries.fetch');
+    Route::get('/inquiries/edit/{id}', [AdminController::class, 'editInquiry'])->name('admin.inquiries.edit');
+    Route::post('/inquiries/update', [AdminController::class, 'updateInquiry'])->name('admin.inquiries.update.save');
 });
 
 Route::group(['prefix' => 'users', 'middleware' => 'user'], function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
-    Route::post('/', [UserController::class, 'saveInquiry'])->name('users.inquiry.save');
+    Route::get('/inquiries/add', [UserController::class, 'addInquiry'])->name('users.inquiry.add');
+    Route::post('/inquiries/save', [UserController::class, 'saveInquiry'])->name('users.inquiry.save');
     Route::get('/inquiries', [UserController::class, 'getInquiries'])->name('users.inquiries');
+    Route::post('/fetch-inquiries', [UserController::class, 'fetchInquiriesByStatus'])->name('users.inquiries.fetch');
     Route::get('/inquiries/edit/{id}', [UserController::class, 'editInquiry'])->name('users.inquiries.edit');
     Route::post('/inquiries/update', [UserController::class, 'updateInquiry'])->name('users.inquiries.update.save');
 });

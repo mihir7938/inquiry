@@ -55,6 +55,12 @@
                             <li class="nav-item">
                                 <a href="{{route('users.index')}}" class="nav-link {{(Route::currentRouteName() == 'users.index') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('users.inquiry.add')}}" class="nav-link {{(Route::currentRouteName() == 'users.inquiry.add') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-edit"></i>
                                     <p>Inquiry Form</p>
                                 </a>
                             </li>
@@ -71,14 +77,14 @@
                                     <p>Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-item {{(Route::currentRouteName() == 'admin.inquiries') ? 'menu-open' : '' }}">
-                                <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') ? 'active' : '' }}">
+                            <li class="nav-item {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-question-circle"></i>
                                     <p>Inquiries<i class="right fas fa-angle-left"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{route('admin.inquiries')}}" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') ? 'active' : '' }}">
+                                        <a href="{{route('admin.inquiries')}}" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'active' : '' }}">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>All Inquiries</p>
                                         </a>

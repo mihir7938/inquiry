@@ -43,9 +43,9 @@
                                                     <a href="{{route('admin.status.edit', ['id' => $status->id])}}" class="btn btn-outline-primary btn-circle">
                                                         <i class="fas fa-pen"></i>
                                                     </a>
-                                                    <a href="{{route('admin.status.delete', ['id' => $status->id])}}" class="btn btn-outline-danger btn-circle">
+                                                    {{--<a href="{{route('admin.status.delete', ['id' => $status->id])}}" class="btn btn-outline-danger btn-circle">
                                                         <i class="fas fa-trash"></i>
-                                                    </a>
+                                                    </a>--}}
                                                 </td>
                                                 <td>{{$status->name}}</td>
                                             </tr>

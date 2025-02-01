@@ -12,7 +12,7 @@
                         <th>Company</th>
                         <th>Contact Name</th>
                         <th>Mobile Number</th>
-                        <th>User</th>
+                        <th>Register</th>
                         <th>Assign</th>
                         <th>Status</th>
                         <th>Date</th>
@@ -31,7 +31,7 @@
                         <th>Company</th>
                         <th>Contact Name</th>
                         <th>Mobile Number</th>
-                        <th>User</th>
+                        <th>Register</th>
                         <th>Assign</th>
                         <th>Status</th>
                         <th>Date</th>
@@ -48,7 +48,7 @@
                         <tr>
                             <td></td>
                             <td style="width: 80px;text-align: center;">
-                                <a href="{{route('admin.inquiries.edit', ['id' => $inquiry->id])}}" class="btn btn-outline-primary btn-circle">
+                                <a href="{{route('users.inquiries.edit', ['id' => $inquiry->id])}}" class="btn btn-outline-primary btn-circle">
                                     <i class="fas fa-pen"></i>
                                 </a>
                             </td>

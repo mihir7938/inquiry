@@ -44,11 +44,24 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-    	$businesses = $this->businessService->getAllBusiness();
-    	$requirements = $this->requirementService->getAllRequirements();
-    	$statuses = $this->statusService->getAllStatus();
-    	$users = $this->userService->getAllUsers();
-        return view('users.index')->with('businesses', $businesses)->with('requirements', $requirements)->with('statuses', $statuses)->with('users', $users);
+        $user_id = Auth::user()->id;
+    	$total_inquiry = $this->inquiryService->getTotalInquiriesByUser($user_id);
+        $total_pending_inquiry = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 1);
+        $total_demo = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 2);
+        $total_followup = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 3);
+        $total_confirmed = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 4);
+        $total_cancelled = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 5);
+        $total_future_list = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 6);
+        $total_assign_inquiry = $this->inquiryService->getTotalInquiriesByAssign($user_id);
+        return view('users.index')->with('total_inquiry', $total_inquiry)->with('total_pending_inquiry', $total_pending_inquiry)->with('total_demo', $total_demo)->with('total_followup', $total_followup)->with('total_confirmed', $total_confirmed)->with('total_cancelled', $total_cancelled)->with('total_future_list', $total_future_list)->with('total_assign_inquiry', $total_assign_inquiry);
+    }
+    public function addInquiry(Request $request)
+    {
+        $businesses = $this->businessService->getAllBusiness();
+        $requirements = $this->requirementService->getAllRequirements();
+        $statuses = $this->statusService->getAllStatus();
+        $users = $this->userService->getAllUsers();
+        return view('users.add')->with('businesses', $businesses)->with('requirements', $requirements)->with('statuses', $statuses)->with('users', $users);
     }
     public function saveInquiry(Request $request)
     {
@@ -75,8 +88,36 @@ class UserController extends Controller
     }
     public function getInquiries(Request $request)
     {
-        $inquiries = $this->inquiryService->getInquiriesByUser(Auth::user()->id);
-        return view('users.inquiries')->with('inquiries', $inquiries);
+        $statuses = $this->statusService->getAllStatus();
+        $user_id = Auth::user()->id;
+        $status_id = "";
+        if( $request->has('status') ) {
+            $status_id = $request->input('status');
+            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
+        } else {
+            $inquiries = $this->inquiryService->getInquiriesByUser($user_id);
+        }
+        return view('users.inquiries')->with('statuses', $statuses)->with('status_id', $status_id)->with('inquiries', $inquiries);
+    }
+    public function fetchInquiriesByStatus(Request $request)
+    {
+        $status_id = $request->status_id;
+        $user_id = Auth::user()->id;
+        $inquiries = $this->inquiryService->getInquiriesByUser($user_id);
+        if($status_id == 1) {
+            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
+        } elseif($status_id == 2) {
+            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
+        } elseif($status_id == 3) {
+            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
+        } elseif($status_id == 4) {
+            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
+        } elseif($status_id == 5) {
+            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
+        } elseif($status_id == 6) {
+            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
+        }
+        return view('users.list')->with('inquiries', $inquiries)->render();
     }
     public function editInquiry(Request $request, $id)
     {

@@ -35,17 +35,39 @@ class InquiryService
         return $inquiry->delete($inquiry);
     }
 
+    public function getInquiriesByStatus($status_id)
+    {
+        return Inquiry::where('status_id', $status_id)->orderBy('created_at','desc')->get();
+    }
+
+    public function getInquiriesByUser($user_id)
+    {
+        return Inquiry::where('user_id', $user_id)->orderBy('created_at','desc')->get();
+    }
+
+    public function getInquiriesByUserByStatus($user_id, $status_id)
+    {
+        return Inquiry::where('user_id', $user_id)->where('status_id', $status_id)->orderBy('created_at','desc')->get();
+    }
+
     public function getTotalInquiriesByStatus($status_id)
     {
         return Inquiry::where('status_id', $status_id)->count();
     }
 
-    public function getInquiriesByStatus($status_id)
+    public function getTotalInquiriesByUser($user_id)
     {
-        return Inquiry::where('status_id', $status_id)->get();
+        return Inquiry::where('user_id', $user_id)->count();
     }
-    public function getInquiriesByUser($user_id)
+
+    public function getTotalInquiriesByAssign($assign_id)
     {
-        return Inquiry::where('user_id', $user_id)->get();
+        return Inquiry::where('assign_id', $assign_id)->count();
     }
+
+    public function getTotalInquiriesByUserByStatus($user_id, $status_id)
+    {
+        return Inquiry::where('user_id', $user_id)->where('status_id', $status_id)->count();
+    }
+    
 }
