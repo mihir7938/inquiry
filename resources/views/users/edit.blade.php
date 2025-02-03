@@ -101,6 +101,36 @@
                                             <textarea class="form-control" id="remarks" name="remarks" rows="4" cols="50" placeholder="Remarks">{{$inquiry->remarks}}</textarea>
                                         </div>
                                         <div class="form-group">
+                                            <label for="contact_person">Contact Person*</label>
+                                            <input type="text" class="form-control" id="contact_person" name="contact_person" placeholder="Contact Person*" value="{{$inquiry->contact_person}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="followup_date_1">Followup Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" id="followup_date_1" name="followup_date_1" class="form-control followup_date" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="followup_remarks_1">Followup Remarks</label>
+                                            <textarea class="form-control" id="followup_remarks_1" name="followup_remarks_1" rows="4" cols="50" placeholder="Followup Remarks">{{$inquiry->followup_remarks_1}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="followup_date_2">Followup Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" id="followup_date_2" class="form-control followup_date" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="followup_remarks_2">Followup Remarks</label>
+                                            <textarea class="form-control" id="followup_remarks_2" name="followup_remarks_2" rows="4" cols="50" placeholder="Followup Remarks">{{$inquiry->followup_remarks_2}}</textarea>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="image">Image (allowed only JPG,JPEG &amp; PNG files)</label>
                                             <div class="input-group image_div">
                                                 <div class="custom-file">             
@@ -128,6 +158,7 @@
 @section('footer')
 <script>
     $(function () {
+        $('.followup_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
         bsCustomFileInput.init();
         $('#edit-inquiry-form').validate({
             rules:{
