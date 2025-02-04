@@ -67,6 +67,8 @@ Route::group(['prefix' => 'office', 'middleware' => 'admin'], function () {
     Route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
     Route::get('/inquiries', [AdminController::class, 'getInquiries'])->name('admin.inquiries');
     Route::post('/fetch-inquiries', [AdminController::class, 'fetchInquiriesByStatus'])->name('admin.inquiries.fetch');
+    Route::get('/inquiries/add', [AdminController::class, 'addInquiry'])->name('admin.inquiry.add');
+    Route::post('/inquiries/save', [AdminController::class, 'saveInquiry'])->name('admin.inquiry.save');
     Route::get('/inquiries/edit/{id}', [AdminController::class, 'editInquiry'])->name('admin.inquiries.edit');
     Route::post('/inquiries/update', [AdminController::class, 'updateInquiry'])->name('admin.inquiries.update.save');
 });

@@ -21,6 +21,16 @@
                         <th>City</th>
                         <th>Reff</th>
                         <th>Remarks</th>
+                        <th>1st Followup Date</th>
+                        <th>1st Followup Remarks</th>
+                        <th>2nd Followup Date</th>
+                        <th>2nd Followup Remarks</th>
+                        <th>3rd Followup Date</th>
+                        <th>3rd Followup Remarks</th>
+                        <th>4th Followup Date</th>
+                        <th>4th Followup Remarks</th>
+                        <th>5th Followup Date</th>
+                        <th>5th Followup Remarks</th>
                         <th>Image</th>
                     </tr>
                 </thead>
@@ -40,6 +50,16 @@
                         <th>City</th>
                         <th>Reff</th>
                         <th>Remarks</th>
+                        <th>1st Followup Date</th>
+                        <th>1st Followup Remarks</th>
+                        <th>2nd Followup Date</th>
+                        <th>2nd Followup Remarks</th>
+                        <th>3rd Followup Date</th>
+                        <th>3rd Followup Remarks</th>
+                        <th>4th Followup Date</th>
+                        <th>4th Followup Remarks</th>
+                        <th>5th Followup Date</th>
+                        <th>5th Followup Remarks</th>
                         <th>Image</th>
                     </tr>
                 </tfoot>
@@ -64,6 +84,16 @@
                             <td>{{$inquiry->city}}</td>
                             <td>{{$inquiry->reff}}</td>
                             <td>{{$inquiry->remarks}}</td>
+                            <td>{{$inquiry->followup_date_1}}</td>
+                            <td>{{$inquiry->followup_remarks_1}}</td>
+                            <td>{{$inquiry->followup_date_2}}</td>
+                            <td>{{$inquiry->followup_remarks_2}}</td>
+                            <td>{{$inquiry->followup_date_3}}</td>
+                            <td>{{$inquiry->followup_remarks_3}}</td>
+                            <td>{{$inquiry->followup_date_4}}</td>
+                            <td>{{$inquiry->followup_remarks_4}}</td>
+                            <td>{{$inquiry->followup_date_5}}</td>
+                            <td>{{$inquiry->followup_remarks_5}}</td>
                             <td>
                                 @if($inquiry->image)
                                     <img src="{{asset('assets/'.$inquiry->image)}}" width="100px" />

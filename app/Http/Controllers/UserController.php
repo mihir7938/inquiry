@@ -155,6 +155,31 @@ class UserController extends Controller
             $data['status_id'] = $request->status;
             $data['reff'] = $request->reff;
             $data['remarks'] = $request->remarks;
+            $data['followup_remarks_1'] = $request->followup_remarks_1;
+            $data['followup_date_1'] = NULL;
+            if($request->followup_date_1) {
+                $data['followup_date_1'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_1)));
+            }
+            $data['followup_remarks_2'] = $request->followup_remarks_2;
+            $data['followup_date_2'] = NULL;
+            if($request->followup_date_2) {
+                $data['followup_date_2'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_2)));
+            }
+            $data['followup_remarks_3'] = $request->followup_remarks_3;
+            $data['followup_date_3'] = NULL;
+            if($request->followup_date_3) {
+                $data['followup_date_3'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_3)));
+            }
+            $data['followup_remarks_4'] = $request->followup_remarks_4;
+            $data['followup_date_4'] = NULL;
+            if($request->followup_date_4) {
+                $data['followup_date_4'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_4)));
+            }
+            $data['followup_remarks_5'] = $request->followup_remarks_5;
+            $data['followup_date_5'] = NULL;
+            if($request->followup_date_5) {
+                $data['followup_date_5'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_5)));
+            }
             if($request->has('image')){
                 $filepath = public_path('assets/' . $inquiry->image);
                 $this->imageService->deleteFile($filepath);

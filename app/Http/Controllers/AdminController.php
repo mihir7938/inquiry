@@ -14,6 +14,7 @@ use App\Services\InquiryService;
 use App\Models\Inquiry;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller {
 
@@ -427,7 +428,9 @@ class AdminController extends Controller {
             $data['name'] = $request->name;
             $data['email'] = $request->email;
             $data['phone'] = $request->phone;
-            $data['status'] = $request->active;
+            if($user->isUser()) {
+                $data['status'] = $request->active;
+            }
             $this->userService->update($user, $data);
             $request->session()->put('message', 'User has been updated successfully.');
             $request->session()->put('alert-type', 'alert-success');
@@ -486,6 +489,37 @@ class AdminController extends Controller {
         }
         return view('admin.inquiries.list')->with('inquiries', $inquiries)->render();
     }
+    public function addInquiry(Request $request)
+    {
+        $businesses = $this->businessService->getAllBusiness();
+        $requirements = $this->requirementService->getAllRequirements();
+        $statuses = $this->statusService->getAllStatus();
+        $users = $this->userService->getAllUsers();
+        return view('admin.inquiries.add')->with('businesses', $businesses)->with('requirements', $requirements)->with('statuses', $statuses)->with('users', $users);
+    }
+    public function saveInquiry(Request $request)
+    {
+        $data['user_id'] = Auth::user()->id;
+        $data['assign_id'] = $request->assign;
+        $data['company_name'] = $request->company_name;
+        $data['contact_person'] = $request->contact_person;
+        $data['phone'] = $request->phone;
+        $data['city'] = $request->city;
+        $data['business_id'] = $request->business;
+        $data['requirement_id'] = $request->requirement;
+        $data['status_id'] = $request->status;
+        $data['reff'] = $request->reff;
+        $data['remarks'] = $request->remarks;
+        if($request->has('image')){
+            $filename = $this->imageService->uploadFile($request->image, "assets/inquiry");
+            $data['image'] = '/inquiry/'.$filename;
+        }
+        $data['inquiry_date'] = date('Y-m-d');
+        $this->inquiryService->create($data);
+        $request->session()->put('message', 'inquiry has been generated successfully.');
+        $request->session()->put('alert-type', 'alert-success');
+        return redirect()->route('admin.inquiries');
+    }
     public function editInquiry(Request $request, $id)
     {
         try{
@@ -520,6 +554,31 @@ class AdminController extends Controller {
             $data['status_id'] = $request->status;
             $data['reff'] = $request->reff;
             $data['remarks'] = $request->remarks;
+            $data['followup_remarks_1'] = $request->followup_remarks_1;
+            $data['followup_date_1'] = NULL;
+            if($request->followup_date_1) {
+                $data['followup_date_1'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_1)));
+            }
+            $data['followup_remarks_2'] = $request->followup_remarks_2;
+            $data['followup_date_2'] = NULL;
+            if($request->followup_date_2) {
+                $data['followup_date_2'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_2)));
+            }
+            $data['followup_remarks_3'] = $request->followup_remarks_3;
+            $data['followup_date_3'] = NULL;
+            if($request->followup_date_3) {
+                $data['followup_date_3'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_3)));
+            }
+            $data['followup_remarks_4'] = $request->followup_remarks_4;
+            $data['followup_date_4'] = NULL;
+            if($request->followup_date_4) {
+                $data['followup_date_4'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_4)));
+            }
+            $data['followup_remarks_5'] = $request->followup_remarks_5;
+            $data['followup_date_5'] = NULL;
+            if($request->followup_date_5) {
+                $data['followup_date_5'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_5)));
+            }
             if($request->has('image')){
                 $filepath = public_path('assets/' . $inquiry->image);
                 $this->imageService->deleteFile($filepath);

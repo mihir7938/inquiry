@@ -83,8 +83,8 @@
                                     <p>Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-item {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'menu-open' : '' }}">
-                                <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'active' : '' }}">
+                            <li class="nav-item {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiry.add') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiry.add') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-question-circle"></i>
                                     <p>Inquiries<i class="right fas fa-angle-left"></i></p>
                                 </a>
@@ -93,6 +93,12 @@
                                         <a href="{{route('admin.inquiries')}}" class="nav-link {{(Route::currentRouteName() == 'admin.inquiries') || (Route::currentRouteName() == 'admin.inquiries.edit') ? 'active' : '' }}">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>All Inquiries</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.inquiry.add')}}" class="nav-link {{(Route::currentRouteName() == 'admin.inquiry.add') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Add New Inquiry</p>
                                         </a>
                                     </li>
                                 </ul>
