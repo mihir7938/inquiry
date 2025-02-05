@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="business">Business*</label>
-                                            <select id="business" name="business" class="form-control">
+                                            <select id="business" name="business" class="form-control select2">
 					                            <option value="">Select Business*</option>
 					                            @foreach($businesses as $business)
 					                                <option value="{{$business->id}}">{{$business->name}}</option>
@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="requirement">Requirement*</label>
-                                            <select id="requirement" name="requirement" class="form-control">
+                                            <select id="requirement" name="requirement" class="form-control select2">
 					                            <option value="">Select Requirement*</option>
 					                            @foreach($requirements as $requirement)
 					                                <option value="{{$requirement->id}}">{{$requirement->name}}</option>
@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="status">Status*</label>
-                                            <select id="status" name="status" class="form-control">
+                                            <select id="status" name="status" class="form-control select2">
 					                            <option value="">Select Status*</option>
 					                            @foreach($statuses as $status)
 					                                <option value="{{$status->id}}">{{$status->name}}</option>
@@ -86,7 +86,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="assign">Assign*</label>
-                                            <select id="assign" name="assign" class="form-control">
+                                            <select id="assign" name="assign" class="form-control select2">
 					                            <option value="">Select Assign*</option>
 					                            @foreach($users as $user)
 					                            	@if($user->isUser())
@@ -124,6 +124,7 @@
 @section('footer')
 <script>
     $(function () {
+        $('.select2').select2();
         bsCustomFileInput.init();
         $('#add-inquiry-form').validate({
             rules:{

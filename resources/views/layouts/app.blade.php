@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{asset('adminlte/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/css/buttons.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/css/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('adminlte/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('adminlte/css/select2-bootstrap4.min.css')}}">
 	@yield('header')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -175,6 +177,7 @@
     </div>
     <script src="{{asset('adminlte/js/jquery.min.js')}}"></script>
     <script src="{{asset('adminlte/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('adminlte/js/select2.full.min.js')}}"></script>
     <script src="{{asset('adminlte/js/bs-custom-file-input.min.js')}}"></script>
     <script src="{{asset('adminlte/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('adminlte/js/dataTables.bootstrap4.min.js')}}"></script>

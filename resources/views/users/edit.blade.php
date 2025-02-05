@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="business">Business*</label>
-                                            <select id="business" name="business" class="form-control">
+                                            <select id="business" name="business" class="form-control select2">
 					                            <option value="">Select Business*</option>
 					                            @foreach($businesses as $business)
 					                                <option value="{{$business->id}}" @if($inquiry->business_id == $business->id) selected @endif>{{$business->name}}</option>
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="requirement">Requirement*</label>
-                                            <select id="requirement" name="requirement" class="form-control">
+                                            <select id="requirement" name="requirement" class="form-control select2">
 					                            <option value="">Select Requirement*</option>
 					                            @foreach($requirements as $requirement)
 					                                <option value="{{$requirement->id}}" @if($inquiry->requirement_id == $requirement->id) selected @endif>{{$requirement->name}}</option>
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="status">Status*</label>
-                                            <select id="status" name="status" class="form-control">
+                                            <select id="status" name="status" class="form-control select2">
 					                            <option value="">Select Status*</option>
 					                            @foreach($statuses as $status)
 					                                <option value="{{$status->id}}" @if($inquiry->status_id == $status->id) selected @endif>{{$status->name}}</option>
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="assign">Assign*</label>
-                                            <select id="assign" name="assign" class="form-control">
+                                            <select id="assign" name="assign" class="form-control select2">
 					                            <option value="">Select Assign*</option>
 					                            @foreach($users as $user)
 					                            	@if($user->isUser())
@@ -214,7 +214,8 @@
 @section('footer')
 <script>
     $(function () {
-        $('.followup_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        $('.select2').select2();
+        $('.followup_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
         bsCustomFileInput.init();
         $('#edit-inquiry-form').validate({
             rules:{
