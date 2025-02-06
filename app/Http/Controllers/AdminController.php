@@ -11,6 +11,7 @@ use App\Services\StatusService;
 use App\Services\AssignService;
 use App\Services\UserService;
 use App\Services\InquiryService;
+use App\Services\InquiryPhotosService;
 use App\Models\Inquiry;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller {
 
-	private $imageService, $cityService, $businessService, $requirementService, $statusService, $assignService, $userService, $inquiryService;
+	private $imageService, $cityService, $businessService, $requirementService, $statusService, $assignService, $userService, $inquiryService, $inquiryPhotosService;
 
     public function __construct(
         UploadImageService $imageService,
@@ -28,7 +29,8 @@ class AdminController extends Controller {
         StatusService $statusService,
         AssignService $assignService,
         UserService $userService,
-        InquiryService $inquiryService
+        InquiryService $inquiryService,
+        InquiryPhotosService $inquiryPhotosService
     )
     {
         $this->imageService = $imageService;
@@ -39,6 +41,7 @@ class AdminController extends Controller {
         $this->assignService = $assignService;
         $this->userService = $userService;
         $this->inquiryService = $inquiryService;
+        $this->inquiryPhotosService = $inquiryPhotosService;
     }
 
     public function index(Request $request)
@@ -510,12 +513,17 @@ class AdminController extends Controller {
         $data['status_id'] = $request->status;
         $data['reff'] = $request->reff;
         $data['remarks'] = $request->remarks;
-        if($request->has('image')){
-            $filename = $this->imageService->uploadFile($request->image, "assets/inquiry");
-            $data['image'] = '/inquiry/'.$filename;
-        }
         $data['inquiry_date'] = date('Y-m-d');
-        $this->inquiryService->create($data);
+        $inquiry_data = $this->inquiryService->create($data);
+        $inquiry_id = $inquiry_data->id;
+        if($request->has('image')){
+            $data['inquiry_id'] = $inquiry_id;
+            foreach($request->image as $img) {
+                $filename = $this->imageService->uploadFile($img, "assets/inquiry");
+                $data['image'] = '/inquiry/'.$filename;
+                $this->inquiryPhotosService->create($data);
+            }
+        }
         $request->session()->put('message', 'inquiry has been generated successfully.');
         $request->session()->put('alert-type', 'alert-success');
         return redirect()->route('admin.inquiries');
@@ -579,13 +587,15 @@ class AdminController extends Controller {
             if($request->followup_date_5) {
                 $data['followup_date_5'] = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_date_5)));
             }
-            if($request->has('image')){
-                $filepath = public_path('assets/' . $inquiry->image);
-                $this->imageService->deleteFile($filepath);
-                $filename = $this->imageService->uploadFile($request->image, "assets/inquiry");
-                $data['image'] = '/inquiry/'.$filename;
-            }
             $this->inquiryService->update($inquiry, $data);
+            if($request->has('image')){
+                $data['inquiry_id'] = $request->id;
+                foreach($request->image as $img) {
+                    $filename = $this->imageService->uploadFile($img, "assets/inquiry");
+                    $data['image'] = '/inquiry/'.$filename;
+                    $this->inquiryPhotosService->create($data);
+                }
+            }
             $request->session()->put('message', 'inquiry has been updated successfully.');
             $request->session()->put('alert-type', 'alert-success');
             return redirect()->route('admin.inquiries');

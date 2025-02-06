@@ -95,8 +95,13 @@
                             <td>{{$inquiry->followup_date_5}}</td>
                             <td>{{$inquiry->followup_remarks_5}}</td>
                             <td>
-                                @if($inquiry->image)
-                                    <img src="{{asset('assets/'.$inquiry->image)}}" width="100px" />
+                                @php
+                                    $inquiry_image = $inquiry->photos()->get();
+                                @endphp
+                                @if(($inquiry_image->count() > 0))
+                                    @foreach($inquiry_image as $row)
+                                        <img src="{{asset('assets/'.$row->image)}}" class="mr-2 my-2" width="100px" />
+                                    @endforeach
                                 @endif
                             </td>
                         </tr>

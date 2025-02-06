@@ -61,4 +61,8 @@ class Inquiry extends Model
     {
         return $this->belongsTo(Requirement::class, 'requirement_id', 'id');
     }
+    public function photos()
+    {
+        return $this->hasMany(InquiryPhoto::class, 'inquiry_id', 'id');
+    }
 }

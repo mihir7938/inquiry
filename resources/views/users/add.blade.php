@@ -103,7 +103,7 @@
                                             <label for="image">Image (allowed only JPG,JPEG &amp; PNG files)</label>
                                             <div class="input-group">
                                                 <div class="custom-file">             
-                                                    <input type="file" class="custom-file-input" id="image" name="image">
+                                                    <input type="file" class="custom-file-input" id="image" name="image[]" multiple="multiple">
                                                     <label class="custom-file-label" for="image">Choose file</label>
                                                 </div>              
                                             </div>
@@ -154,7 +154,7 @@
                 assign: {
                     required: true
                 },
-                image: {
+                'image[]': {
                     extension: "png|jpg|jpeg",
                     maxsize: 2000000,
                 }
@@ -184,7 +184,7 @@
                 assign: {
                     required: "Please select assign."
                 },
-                image: {
+                'image[]': {
                     extension: "Please select valid image.",
                     maxsize: "File size must be less than 2MB."
                 }

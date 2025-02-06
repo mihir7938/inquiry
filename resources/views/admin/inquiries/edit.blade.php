@@ -190,12 +190,17 @@
                                             <label for="image">Image (allowed only JPG,JPEG &amp; PNG files)</label>
                                             <div class="input-group image_div">
                                                 <div class="custom-file">             
-                                                    <input type="file" class="custom-file-input" id="image" name="image">
+                                                    <input type="file" class="custom-file-input" id="image" name="image[]" multiple="multiple">
                                                     <label class="custom-file-label" for="image">Choose file</label>
                                                 </div>              
                                             </div>
-                                            @if($inquiry->image)
-                                                <img src="{{asset('assets/'.$inquiry->image)}}" width="200px" class="mt-4 d-block" />
+                                            @php
+                                                $inquiry_image = $inquiry->photos()->get();
+                                            @endphp
+                                            @if(($inquiry_image->count() > 0))
+                                                @foreach($inquiry_image as $row)
+                                                    <img src="{{asset('assets/'.$row->image)}}" class="mr-2 mt-4 my-2" width="150px" />
+                                                @endforeach
                                             @endif
                                         </div>
                                     </div>
@@ -242,7 +247,7 @@
                 assign: {
                     required: true
                 },
-                image: {
+                'image[]': {
                     extension: "png|jpg|jpeg",
                     maxsize: 2000000,
                 }
@@ -269,13 +274,13 @@
                 assign: {
                     required: "Please select assign."
                 },
-                image: {
+                'image[]': {
                     extension: "Please select valid image.",
                     maxsize: "File size must be less than 2MB."
                 }
             },
             errorPlacement: function(error, element) {
-                if (element.attr("name") == "image" ) {
+                if (element.attr("name") == "image[]" ) {
                     $(".image_div").after(error);
                 } else {
                     error.insertAfter(element);
