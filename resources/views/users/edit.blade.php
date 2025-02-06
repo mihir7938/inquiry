@@ -83,11 +83,18 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="user">User</label>
-                                            <input type="text" class="form-control" id="user" name="user" value="{{Auth::user()->name}}" disabled>
+                                            <input type="text" class="form-control" id="user" name="user" value="{{$inquiry->user->name}}" disabled>
                                         </div>
+                                        @php
+                                            if($inquiry->user_id == Auth::user()->id) {
+                                                $disabled = '';
+                                            } else {
+                                                $disabled = 'disabled';
+                                            }
+                                        @endphp
                                         <div class="form-group">
                                             <label for="assign">Assign*</label>
-                                            <select id="assign" name="assign" class="form-control select2">
+                                            <select id="assign" name="assign" class="form-control select2" {{ $disabled }}>
 					                            <option value="">Select Assign*</option>
 					                            @foreach($users as $user)
 					                            	@if($user->isUser())
@@ -247,7 +254,7 @@
                 assign: {
                     required: true
                 },
-                image: {
+                'image[]': {
                     extension: "png|jpg|jpeg",
                     maxsize: 2000000,
                 }
@@ -274,13 +281,13 @@
                 assign: {
                     required: "Please select assign."
                 },
-                image: {
+                'image[]': {
                     extension: "Please select valid image.",
                     maxsize: "File size must be less than 2MB."
                 }
             },
             errorPlacement: function(error, element) {
-                if (element.attr("name") == "image" ) {
+                if (element.attr("name") == "image[]" ) {
                     $(".image_div").after(error);
                 } else {
                     error.insertAfter(element);

@@ -101,7 +101,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="image">Image (allowed only JPG,JPEG &amp; PNG files)</label>
-                                            <div class="input-group">
+                                            <div class="input-group image_div">
                                                 <div class="custom-file">             
                                                     <input type="file" class="custom-file-input" id="image" name="image[]" multiple="multiple">
                                                     <label class="custom-file-label" for="image">Choose file</label>
@@ -190,7 +190,7 @@
                 }
             },
             errorPlacement: function(error, element) {
-                if (element.attr("name") == "image" ) {
+                if (element.attr("name") == "image[]" ) {
                     $(".image_div").after(error);
                 } else {
                     error.insertAfter(element);

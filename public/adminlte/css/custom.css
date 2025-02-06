@@ -45,6 +45,11 @@ label.error {
 .form .select2-container--default .select2-selection--single .select2-selection__arrow b {
   margin-top: 0;
 }
+#edit-inquiry-form .btn-outline-primary {
+  cursor: default;
+  background-color: #fff;
+  color: #007bff;
+}
 @media (max-width: 767px) {
   #add-inquiry-form .form-group > label, #edit-inquiry-form .form-group > label {
     display: none;
