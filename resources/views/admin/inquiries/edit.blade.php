@@ -249,7 +249,7 @@
                 },
                 'image[]': {
                     extension: "png|jpg|jpeg",
-                    maxsize: 2000000,
+                    maxsize: 5000000,
                 }
             },
             messages:{
@@ -276,7 +276,7 @@
                 },
                 'image[]': {
                     extension: "Please select valid image.",
-                    maxsize: "File size must be less than 2MB."
+                    maxsize: "File size must be less than 5MB."
                 }
             },
             errorPlacement: function(error, element) {
