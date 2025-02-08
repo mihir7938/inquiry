@@ -22,7 +22,7 @@ class LoginRequest extends Request
     public function attributes()
     {
         return [
-            'name' => 'Name',
+            'phone' => 'Mobile Number',
             'password' => 'Password',
         ];
     }
@@ -30,7 +30,7 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'phone' => 'required|min:10|max:10',
             'password' => 'required|max:16',
         ];
     }

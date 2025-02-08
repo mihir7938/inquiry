@@ -25,8 +25,7 @@ class AuthController extends Controller
     public function getLogin(Request $request)
     {
         if (!Auth::check()) {
-            $users = $this->userService->getAllUsers();
-            return view('auth.login')->with('users', $users);
+            return view('auth.login');
         }
         if (Auth::check() && Auth::user()->role_id == Role::USER_ROLE_ID) {
             $url = url('/users');
@@ -46,14 +45,14 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         try {
-            $user = $this->userService->getUserById($request->name);
             $input = [
-                'email' => $user->email,
+                'phone' => $request->phone,
                 'password' => $request->password,
                 'status' => true
             ];
             $is_auth = Auth::attempt($input, $request->has('remember_me') ? true : false);
             if ($is_auth) {
+                $user = User::find(Auth::user()->id);
                 if ($request->ajax()) {
                     return response()->json(['status' => true]);
                 } else {
@@ -65,7 +64,7 @@ class AuthController extends Controller
                     return redirect($url);
                 }
             } else {
-                throw new \Exception('Invalid name or password, please try again.');
+                throw new \Exception('Invalid mobile number or password, please try again.');
             }
         } catch (\Exception $e) {
             if ($request->ajax()) {

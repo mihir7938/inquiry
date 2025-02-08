@@ -36,7 +36,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="company_name">Company Name*</label>
-                                            <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name*" value="{{$inquiry->company_name}}" disabled>
+                                            <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name*" value="{{$inquiry->company_name}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="contact_person">Contact Person*</label>
@@ -224,6 +224,9 @@
         bsCustomFileInput.init();
         $('#edit-inquiry-form').validate({
             rules:{
+                company_name: {
+                    required: true
+                },
                 contact_person: {
                     required: true
                 },
@@ -253,6 +256,9 @@
                 }
             },
             messages:{
+                company_name: {
+                    required: "Please enter company name."
+                },
                 contact_person: {
                     required: "Please enter contact person."
                 },

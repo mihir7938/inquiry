@@ -421,7 +421,7 @@ class AdminController extends Controller {
             return redirect()->route('admin.users');
         }
     }
-    public function updateUser(UserRequest $request)
+    public function updateUser(Request $request)
     {
         try{
             $user = $this->userService->getUserById($request->id);
@@ -430,7 +430,6 @@ class AdminController extends Controller {
             }
             $data['name'] = $request->name;
             $data['email'] = $request->email;
-            $data['phone'] = $request->phone;
             if($user->isUser()) {
                 $data['status'] = $request->active;
             }
@@ -554,6 +553,7 @@ class AdminController extends Controller {
                 throw new BadRequestException('Invalid Request id');
             }
             $data['assign_id'] = $request->assign;
+            $data['company_name'] = $request->company_name;
             $data['contact_person'] = $request->contact_person;
             $data['phone'] = $request->phone;
             $data['city'] = $request->city;

@@ -22,16 +22,14 @@ class UserRequest extends Request
     public function attributes()
     {
         return [
-            'email' => 'Email',
+            'phone' => 'Mobile Number',
         ];
     }
 
     public function rules()
     {
         return [
-            'name' => 'required|max:155',
-            'email' => 'required|email|max:155|unique:users,email,' . $this -> id ,
-            'phone' => 'required'
+            'phone' => 'required|unique:users|min:10|max:10'
         ];
     }
 

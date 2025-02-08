@@ -10,9 +10,9 @@ class BusinessService
     public function getAllBusiness($per_page = -1)
     {
         if($per_page == -1){
-            return Business::orderByRaw('field(name, "Other")')->orderBy('created_at')->get();    
+            return Business::orderByRaw('field(name, "Other")')->orderBy('name')->get();    
         }
-        return Business::orderByRaw('field(name, "Other")')->orderBy('created_at')->paginate($per_page);
+        return Business::orderByRaw('field(name, "Other")')->orderBy('name')->paginate($per_page);
     }
 
     public function getBusinessById($id)

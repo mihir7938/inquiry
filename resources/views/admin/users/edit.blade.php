@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Mobile Number*</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number" value="{{$user->phone}}">
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number" value="{{$user->phone}}" disabled>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email*</label>
@@ -82,7 +82,8 @@
                 phone: {
                     required: true,
                     digits: true,
-                    minlength: 10
+                    minlength: 10,
+                    maxlength: 10
                 },
                 email: {
                     required: true,

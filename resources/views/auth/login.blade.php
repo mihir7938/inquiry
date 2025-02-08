@@ -33,15 +33,10 @@
 					</div>
 					@endif
 			        <div class="input-group mb-3">
-			        	<select id="name" name="name" class="form-control">
-                            <option value="">Select Name</option>
-                            @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                            @endforeach
-                        </select>
+			        	<input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number">
 			          	<div class="input-group-append">
 			            	<div class="input-group-text">
-			              		<span class="fas fa-user"></span>
+			              		<span class="fas fa-phone"></span>
 			            	</div>
 			          	</div>
 			        </div>
@@ -83,9 +78,12 @@
 	(function() {
 		$('#login-form').validate({
 			rules: {
-				name: {
-					required: true,
-				},
+				phone: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
 				password: {
 					required: true,
 					minlength:8,
@@ -93,9 +91,9 @@
 				},
 			},
 			messages:{
-			 	name:{
-			 		required: "Please select your name.",
-			 	},
+			 	phone: {
+                    required: "Plese enter mobile number.",
+                },
 			 	password:{
 			 		required: "Plese enter your password.",
 			 	}
