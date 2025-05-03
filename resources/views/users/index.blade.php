@@ -82,7 +82,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $total_assign_inquiry }}</h3>
-                            <p>Assign Inquiry</p>
+                            <p>Assign In/Out</p>
                         </div>
                         <a href="{{route('users.assign.inquiries')}}" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

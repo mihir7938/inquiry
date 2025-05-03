@@ -55,7 +55,7 @@ class UserController extends Controller
         $total_confirmed = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 4);
         $total_cancelled = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 5);
         $total_future_list = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 6);
-        $total_assign_inquiry = $this->inquiryService->getTotalInquiriesByAssign($user_id);
+        $total_assign_inquiry = $this->inquiryService->getTotalInquiriesByAssign($user_id, $user_id);
         return view('users.index')->with('total_inquiry', $total_inquiry)->with('total_pending_inquiry', $total_pending_inquiry)->with('total_demo', $total_demo)->with('total_followup', $total_followup)->with('total_confirmed', $total_confirmed)->with('total_cancelled', $total_cancelled)->with('total_future_list', $total_future_list)->with('total_assign_inquiry', $total_assign_inquiry);
     }
     public function addInquiry(Request $request)
@@ -210,16 +210,18 @@ class UserController extends Controller
     {
         $statuses = $this->statusService->getAllStatus();
         $assign_id = Auth::user()->id;
+        $user_id = Auth::user()->id;
         $flag = 0;
-        $inquiries = $this->inquiryService->getInquiriesByAssign($assign_id);
+        $inquiries = $this->inquiryService->getInquiriesByAssign($assign_id, $user_id);
         return view('users.assign')->with('statuses', $statuses)->with('inquiries', $inquiries)->with('flag', $flag);
     }
     public function fetchAssignInquiriesByStatus(Request $request)
     {
         $status_id = $request->status_id;
         $assign_id = Auth::user()->id;
+        $user_id = Auth::user()->id;
         $flag = 0;
-        $inquiries = $this->inquiryService->getInquiriesByAssign($assign_id);
+        $inquiries = $this->inquiryService->getInquiriesByAssign($assign_id, $user_id);
         if($status_id == 1) {
             $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
         } elseif($status_id == 2) {

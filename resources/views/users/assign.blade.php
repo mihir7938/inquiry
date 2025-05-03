@@ -47,6 +47,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary" id="btnsubmit" name="btnsubmit">Submit</button>
+                            </div>
                         </div>
                     </form>
                     <div id="inquiry_result">
@@ -70,7 +73,7 @@
             "responsive": true,
         }).buttons().container().appendTo('#dataTableInquiry_wrapper .col-md-6:eq(0)');
 
-        $(document).on('change', '#status', function(){
+        $(document).on('click', '#btnsubmit', function(){
             $('.loader').show();
             $.ajax({
                 url: "{{ route('users.assign.inquiries.fetch') }}",
@@ -79,7 +82,7 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                  'status_id' : $(this).val(),
+                  'status_id' : $("#status").val(),
                 },
                 success: function (data) {
                     $('.loader').hide();

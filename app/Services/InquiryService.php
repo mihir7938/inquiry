@@ -50,14 +50,24 @@ class InquiryService
         return Inquiry::where('user_id', $user_id)->where('status_id', $status_id)->orderBy('created_at','desc')->get();
     }
 
-    public function getInquiriesByAssign($assign_id)
+    public function getInquiriesByAssign($assign_id, $user_id)
     {
-        return Inquiry::where('assign_id', $assign_id)->orderBy('created_at','desc')->get();
+        return Inquiry::where(function ($query) use ($assign_id, $user_id) { 
+            $query->where('assign_id', '=', $assign_id) 
+                ->orWhere('user_id', '=', $user_id);
+            })->where(function ($query) { 
+                $query->whereColumn('assign_id','!=','user_id'); 
+            })->orderBy('created_at','desc')->get();
     }
 
     public function getInquiriesByAssignByStatus($assign_id, $status_id)
     {
-        return Inquiry::where('assign_id', $assign_id)->where('status_id', $status_id)->orderBy('created_at','desc')->get();
+        return Inquiry::where(function ($query) use ($assign_id, $status_id) { 
+            $query->where('assign_id', '=', $assign_id) 
+                ->orWhere('user_id', '=', $assign_id);
+            })->where(function ($query) { 
+                $query->whereColumn('assign_id','!=','user_id'); 
+            })->where('status_id', $status_id)->orderBy('created_at','desc')->get();
     }
 
     public function getTotalInquiriesByStatus($status_id)
@@ -70,9 +80,14 @@ class InquiryService
         return Inquiry::where('user_id', $user_id)->count();
     }
 
-    public function getTotalInquiriesByAssign($assign_id)
+    public function getTotalInquiriesByAssign($assign_id, $user_id)
     {
-        return Inquiry::where('assign_id', $assign_id)->count();
+        return Inquiry::where(function ($query) use ($assign_id, $user_id) { 
+            $query->where('assign_id', '=', $assign_id) 
+                ->orWhere('user_id', '=', $user_id);
+            })->where(function ($query) { 
+                $query->whereColumn('assign_id','!=','user_id'); 
+            })->count();
     }
 
     public function getTotalInquiriesByUserByStatus($user_id, $status_id)
