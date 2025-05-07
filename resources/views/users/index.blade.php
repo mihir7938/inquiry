@@ -25,12 +25,39 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{ $total_assign_inquiry }}</h3>
+                            <p>Assign In/Out</p>
+                        </div>
+                        <a href="{{route('users.assign.inquiries')}}" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
                     <div class="small-box bg-dark">
                         <div class="inner">
                             <h3>{{ $total_pending_inquiry }}</h3>
                             <p>Pending Inquiry</p>
                         </div>
                         <a href="{{route('users.inquiries')}}?status=1" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ $total_future_list }}</h3>
+                            <p>Future List</p>
+                        </div>
+                        <a href="{{route('users.inquiries')}}?status=6" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-dark">
+                        <div class="inner">
+                            <h3>{{ $total_hot_lead }}</h3>
+                            <p>Hot Lead</p>
+                        </div>
+                        <a href="{{route('users.inquiries')}}?status=7" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
@@ -67,24 +94,6 @@
                             <p>Cancelled</p>
                         </div>
                         <a href="{{route('users.inquiries')}}?status=5" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-dark">
-                        <div class="inner">
-                            <h3>{{ $total_future_list }}</h3>
-                            <p>Future List</p>
-                        </div>
-                        <a href="{{route('users.inquiries')}}?status=6" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $total_assign_inquiry }}</h3>
-                            <p>Assign In/Out</p>
-                        </div>
-                        <a href="{{route('users.assign.inquiries')}}" class="small-box-footer py-3">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

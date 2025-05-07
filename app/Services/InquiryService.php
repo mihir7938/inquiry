@@ -60,14 +60,37 @@ class InquiryService
             })->orderBy('created_at','desc')->get();
     }
 
-    public function getInquiriesByAssignByStatus($assign_id, $status_id)
+    public function getInquiriesByAssignByStatus($request, $assign_id)
     {
-        return Inquiry::where(function ($query) use ($assign_id, $status_id) { 
+        $filter_query = Inquiry::where(function ($query) use ($request, $assign_id) { 
             $query->where('assign_id', '=', $assign_id) 
                 ->orWhere('user_id', '=', $assign_id);
             })->where(function ($query) { 
                 $query->whereColumn('assign_id','!=','user_id'); 
-            })->where('status_id', $status_id)->orderBy('created_at','desc')->get();
+            })->orderBy('created_at','desc');
+
+        if($request->has('status_id') && $request->status_id != ''){
+            $filter_query = $filter_query->where('status_id', $request->status_id);
+        }
+        if($request->has('assign_type') && $request->assign_type != ''){
+            if($request->assign_type == 'In') {
+                $filter_query = $filter_query->where('assign_id', $assign_id);
+            } else if($request->assign_type == 'Out') {
+                $filter_query = $filter_query->where('user_id', $assign_id);
+            }
+        }
+        if($request->followup_start_date && $request->followup_end_date){
+            $startDate = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_start_date)));
+            $endDate = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_end_date)));
+            $filter_query = $filter_query->where(function ($query) use ($startDate, $endDate) { 
+                $query->whereBetween('followup_date_1', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_2', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_3', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_4', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_5', [$startDate, $endDate]);
+            });
+        }
+        return $filter_query->select('*')->get();
     }
 
     public function getTotalInquiriesByStatus($status_id)

@@ -55,8 +55,9 @@ class UserController extends Controller
         $total_confirmed = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 4);
         $total_cancelled = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 5);
         $total_future_list = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 6);
+        $total_hot_lead = $this->inquiryService->getTotalInquiriesByUserByStatus($user_id, 7);
         $total_assign_inquiry = $this->inquiryService->getTotalInquiriesByAssign($user_id, $user_id);
-        return view('users.index')->with('total_inquiry', $total_inquiry)->with('total_pending_inquiry', $total_pending_inquiry)->with('total_demo', $total_demo)->with('total_followup', $total_followup)->with('total_confirmed', $total_confirmed)->with('total_cancelled', $total_cancelled)->with('total_future_list', $total_future_list)->with('total_assign_inquiry', $total_assign_inquiry);
+        return view('users.index')->with('total_inquiry', $total_inquiry)->with('total_pending_inquiry', $total_pending_inquiry)->with('total_demo', $total_demo)->with('total_followup', $total_followup)->with('total_confirmed', $total_confirmed)->with('total_cancelled', $total_cancelled)->with('total_future_list', $total_future_list)->with('total_hot_lead', $total_hot_lead)->with('total_assign_inquiry', $total_assign_inquiry);
     }
     public function addInquiry(Request $request)
     {
@@ -154,7 +155,9 @@ class UserController extends Controller
             if(!$inquiry){
                 throw new BadRequestException('Invalid Request id');
             }
-            $data['assign_id'] = $request->assign;
+            if($request->assign) {
+                $data['assign_id'] = $request->assign;
+            }
             $data['contact_person'] = $request->contact_person;
             $data['phone'] = $request->phone;
             $data['city'] = $request->city;
@@ -217,24 +220,9 @@ class UserController extends Controller
     }
     public function fetchAssignInquiriesByStatus(Request $request)
     {
-        $status_id = $request->status_id;
         $assign_id = Auth::user()->id;
-        $user_id = Auth::user()->id;
         $flag = 0;
-        $inquiries = $this->inquiryService->getInquiriesByAssign($assign_id, $user_id);
-        if($status_id == 1) {
-            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
-        } elseif($status_id == 2) {
-            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
-        } elseif($status_id == 3) {
-            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
-        } elseif($status_id == 4) {
-            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
-        } elseif($status_id == 5) {
-            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
-        } elseif($status_id == 6) {
-            $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($assign_id, $status_id);
-        }
+        $inquiries = $this->inquiryService->getInquiriesByAssignByStatus($request, $assign_id);
         return view('users.list')->with('inquiries', $inquiries)->with('flag', $flag)->render();
     }
 }

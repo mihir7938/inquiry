@@ -30,19 +30,53 @@
                         @endif
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Select Status</h3>
+                                <h3 class="card-title">Search Filter</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="status">Status*</label>
+                                            <label for="status">Status</label>
                                             <select id="status" name="status" class="form-control">
                                                 <option value="">Select Status</option>
                                                 @foreach($statuses as $status)
                                                     <option value="{{$status->id}}">{{$status->name}}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="assign_type">Assign Type</label>
+                                            <select id="assign_type" name="assign_type" class="form-control">
+                                                <option value="">Select Assign Type</option>
+                                                <option value="In">In</option>
+                                                <option value="Out">Out</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="followup_start_date">Followup Start Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" id="followup_start_date" name="followup_start_date" class="form-control followup_date" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="followup_end_date">Followup End Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" id="followup_end_date" name="followup_end_date" class="form-control followup_date" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -63,6 +97,7 @@
 @section('footer')
 <script>
     $(document).ready(function() {
+        $('.followup_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
         $('#dataTableInquiry').DataTable({
             "buttons": ["csv", "excel"],
             "destroy": true, 
@@ -83,6 +118,9 @@
                 },
                 data: {
                   'status_id' : $("#status").val(),
+                  'assign_type' : $("#assign_type").val(),
+                  'followup_start_date' : $("#followup_start_date").val(),
+                  'followup_end_date' : $("#followup_end_date").val(),
                 },
                 success: function (data) {
                     $('.loader').hide();
