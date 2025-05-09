@@ -115,17 +115,7 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $inquiries = $this->inquiryService->getInquiriesByUser($user_id);
         $flag = 1;
-        if($status_id == 1) {
-            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
-        } elseif($status_id == 2) {
-            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
-        } elseif($status_id == 3) {
-            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
-        } elseif($status_id == 4) {
-            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
-        } elseif($status_id == 5) {
-            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
-        } elseif($status_id == 6) {
+        if($status_id) {
             $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
         }
         return view('users.list')->with('inquiries', $inquiries)->with('flag', $flag)->render();
