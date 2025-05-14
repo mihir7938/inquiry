@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="status">Status*</label>
+                                            <label for="status">Status</label>
                                             <select id="status" name="status" class="form-control">
                                                 <option value="">Select Status</option>
                                                 @foreach($statuses as $status)
@@ -46,6 +46,33 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="followup_start_date">Followup Start Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" id="followup_start_date" name="followup_start_date" class="form-control followup_date" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="followup_end_date">Followup End Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" id="followup_end_date" name="followup_end_date" class="form-control followup_date" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary" id="btnsubmit" name="btnsubmit">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -60,6 +87,7 @@
 @section('footer')
 <script>
     $(document).ready(function() {
+        $('.followup_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
         $('#dataTableInquiry').DataTable({
             "buttons": ["csv", "excel"],
             "destroy": true, 
@@ -70,7 +98,7 @@
             "responsive": true,
         }).buttons().container().appendTo('#dataTableInquiry_wrapper .col-md-6:eq(0)');
 
-        $(document).on('change', '#status', function(){
+        $(document).on('click', '#btnsubmit', function(){
             $('.loader').show();
             $.ajax({
                 url: "{{ route('users.inquiries.fetch') }}",
@@ -79,7 +107,9 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                  'status_id' : $(this).val(),
+                  'status_id' : $("#status").val(),
+                  'followup_start_date' : $("#followup_start_date").val(),
+                  'followup_end_date' : $("#followup_end_date").val(),
                 },
                 success: function (data) {
                     $('.loader').hide();

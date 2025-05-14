@@ -111,13 +111,9 @@ class UserController extends Controller
     }
     public function fetchInquiriesByStatus(Request $request)
     {
-        $status_id = $request->status_id;
         $user_id = Auth::user()->id;
-        $inquiries = $this->inquiryService->getInquiriesByUser($user_id);
         $flag = 1;
-        if($status_id) {
-            $inquiries = $this->inquiryService->getInquiriesByUserByStatus($user_id, $status_id);
-        }
+        $inquiries = $this->inquiryService->getInquiriesByUserByFilter($request, $user_id);
         return view('users.list')->with('inquiries', $inquiries)->with('flag', $flag)->render();
     }
     public function editInquiry(Request $request, $id)

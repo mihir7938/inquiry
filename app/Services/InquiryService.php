@@ -50,6 +50,26 @@ class InquiryService
         return Inquiry::where('user_id', $user_id)->where('status_id', $status_id)->orderBy('created_at','desc')->get();
     }
 
+    public function getInquiriesByUserByFilter($request, $user_id)
+    {
+        $filter_query = Inquiry::where('user_id', '=', $user_id)->orderBy('created_at','desc');
+        if($request->has('status_id') && $request->status_id != ''){
+            $filter_query = $filter_query->where('status_id', $request->status_id);
+        }
+        if($request->followup_start_date && $request->followup_end_date){
+            $startDate = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_start_date)));
+            $endDate = date("Y-m-d", strtotime(str_replace('/', '-', $request->followup_end_date)));
+            $filter_query = $filter_query->where(function ($query) use ($startDate, $endDate) { 
+                $query->whereBetween('followup_date_1', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_2', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_3', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_4', [$startDate, $endDate])
+                    ->orWhereBetween('followup_date_5', [$startDate, $endDate]);
+            });
+        }
+        return $filter_query->select('*')->get();
+    }
+
     public function getInquiriesByAssign($assign_id, $user_id)
     {
         return Inquiry::where(function ($query) use ($assign_id, $user_id) { 
